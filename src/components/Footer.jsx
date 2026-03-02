@@ -11,7 +11,7 @@ const Footer = () => {
     const fetchVisitorCount = async () => {
       try {
         const response = await fetch(
-          "https://api.countapi.xyz/hit/pritiranjan-portfolio/visits",
+          "https://api.countapi.xyz/hit/pritiranjan.dev/visits",
         );
         const data = await response.json();
         setVisitorCount(data.value);
