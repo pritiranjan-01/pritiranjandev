@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  html.dark {
+    @apply bg-black;
+  }
+
+  body {
+    @apply font-body bg-light-bgPrimary text-light-textPrimary transition-colors duration-300;
+  }
+
+  body.dark {
+    @apply bg-black text-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold;
+  }
+
+  body.dark h1,
+  body.dark h2,
+  body.dark h3,
+  body.dark h4,
+  body.dark h5,
+  body.dark h6 {
+    @apply text-white;
+  }
+
+  p,
+  span,
+  a,
+  li,
+  div {
+    @apply text-light-textPrimary;
+  }
+
+  body.dark p,
+  body.dark span,
+  body.dark a,
+  body.dark li,
+  body.dark div {
+    @apply text-white;
+  }
+}
+
+@layer components {
+  /* Creating reusable classes instead of hardcoded CSS */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/50 shadow-glass-light;
+  }
+
+  body.dark .glass {
+    @apply bg-black/40 border border-white/10 shadow-glass-dark text-white;
+  }
+
+  /* Added more margin from left and right using increased padding or custom container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-20 xl:px-28;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-black to-black;
+  }
+
+  body.dark .gradient-text {
+    @apply from-white to-white;
+  }
+}
