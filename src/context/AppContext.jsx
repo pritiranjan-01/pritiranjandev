@@ -47,13 +47,7 @@ const sampleProjects = [
     title: "URL-Shortner",
     description:
       "A web-based URL shortening service built with Spring Boot that transforms long URLs into short, shareable links. Focused on clean UI design, secure redirection, and efficient backend handling.",
-    stack: [
-      "JavaScript",
-      "Bootstrap",
-      "Spring Boot",
-      "Java MailSender",
-      "OpenPDF",
-    ],
+    stack: ["HTML", "CSS", "JavaScript", "Thymeleaf", "Spring Boot"],
     source: "https://github.com/pritiranjan-01/URL-shortner.git",
     website: null,
     mediaSource: assets.US,
