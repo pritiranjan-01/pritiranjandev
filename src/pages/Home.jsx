@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SocialFeed from "../components/SocialFeed.jsx";
-import { assets } from "../assets/asset.js";
+import { utils } from "../assets/util/util.js";
 import { useAppContext } from "../context/AppContext.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import VideoModal from "../components/VideoModal.jsx";
@@ -18,7 +18,7 @@ const Home = () => {
       <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20 grid gap-6 sm:gap-8 md:grid-cols-[auto,minmax(0,1fr)] md:items-center">
         <div className="mx-auto h-60 w-48 sm:h-72 sm:w-56 md:h-80 md:w-64 rounded-2xl sm:rounded-3xl bg-black shadow-glass-light ring-2 sm:ring-4 ring-white/60 transition-transform duration-300 hover:-translate-y-1 dark:bg-white dark:shadow-glass-dark">
           <img
-            src={assets.profile}
+            src={utils.profile}
             alt="profile"
             className="h-full w-full object-cover rounded-2xl sm:rounded-3xl"
           />
@@ -151,7 +151,7 @@ const Home = () => {
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div className="h-14 w-14 sm:h-16 sm:w-16 flex-shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-blue-400 dark:bg-black dark:ring-blue-600">
               <img
-                src={assets.collegLogo}
+                src={utils.tat}
                 alt="Trident Academy Of Technology"
                 className="h-full w-full object-contain"
               />
@@ -174,7 +174,7 @@ const Home = () => {
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div className="h-14 w-14 sm:h-16 sm:w-16 flex-shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-red-400 dark:bg-black dark:ring-red-600">
               <img
-                src={assets.collegLogo2}
+                src={utils.mcnl}
                 alt="Maharishi College Of Natural Law"
                 className="h-full w-full object-cover"
               />

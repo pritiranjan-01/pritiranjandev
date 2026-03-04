@@ -6,4 +6,12 @@ import SMS from "./SMS.png";
 import TF from "./TF.png";
 import US from "./US.png";
 
-export { BMS, BS, GS, GSD, SMS, TF, US };
+export const projectPosters = {
+    BMS,
+    BS,
+    GS,
+    GSD,
+    SMS,
+    TF,
+    US,
+};

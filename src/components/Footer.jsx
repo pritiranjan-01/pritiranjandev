@@ -7,7 +7,6 @@ const Footer = () => {
   const [visitorCount, setVisitorCount] = useState(0);
 
   useEffect(() => {
-    // Fetch and increment visitor count from CountAPI
     const fetchVisitorCount = async () => {
       try {
         const response = await fetch(
@@ -16,7 +15,6 @@ const Footer = () => {
         const data = await response.json();
         setVisitorCount(data.count);
       } catch {
-        // Silently fail if API is unavailable
         console.log("Unable to fetch visitor count");
       }
     };

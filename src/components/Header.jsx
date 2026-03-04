@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
-import { assets } from "../assets/asset";
+import { utils } from "../assets/util/util.js";
 
 const navLinkClasses =
   "text-xs sm:text-sm md:text-base font-medium tracking-wide px-2 sm:px-3 py-1 rounded-full transition-colors relative";
@@ -16,7 +16,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
         {/* Logo / Title */}
         <Link to="/" className="flex items-center gap-2 sm:gap-3">
           <img
-            src={assets.logo}
+            src={utils.logo}
             alt="Logo"
             className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 p-0.5 rounded-full border-2 sm:border-[3px] md:border-[4px] border-blue-500 border-accent-DEFAULT dark:border-accent-dark shadow-glass-light dark:shadow-glass-dark object-cover"
           />

@@ -4,8 +4,9 @@ import {
   useEffect,
   useContext,
 } from "react";
-import { assets } from "../assets/asset";
-import * as Posters from "./../assets/ProjectPosters";
+import { projectDemos } from "../assets/projectDemos/index";
+import { projectPosters } from "../assets/projectPosters/index";
+
 
 const sampleProjects = [
   {
@@ -22,8 +23,8 @@ const sampleProjects = [
     ],
     source: "https://github.com/pritiranjan-01/billing-system.git",
     website: null,
-    mediaSource: assets.BS,
-    poster: Posters.BS,
+    mediaSource: projectDemos.BS,
+    poster: projectPosters.BS,
   },
   {
     title:
@@ -40,8 +41,8 @@ const sampleProjects = [
     source:
       "https://github.com/pritiranjan-01/global-weather-service-backend-springboot.git",
     website: "https://globalweatherservice.vercel.app",
-    mediaSource: assets.GS,
-    poster: Posters.GS,
+    mediaSource: projectDemos.GS,
+    poster: projectPosters.GS,
   },
   {
     title: "URL-Shortner",
@@ -50,8 +51,8 @@ const sampleProjects = [
     stack: ["HTML", "CSS", "JavaScript", "Thymeleaf", "Spring Boot"],
     source: "https://github.com/pritiranjan-01/URL-shortner.git",
     website: null,
-    mediaSource: assets.US,
-    poster: Posters.US,
+    mediaSource: projectDemos.US,
+    poster: projectPosters.US,
   },
   {
     title: "Student Management System",
@@ -61,8 +62,8 @@ const sampleProjects = [
     source:
       "https://github.com/pritiranjan-01/Student-Management-Pro-JSP_Servlet_Hibernate",
     website: null,
-    mediaSource: assets.SM,
-    poster: Posters.SMS,
+    mediaSource: projectDemos.SM,
+    poster: projectPosters.SMS,
   },
   {
     title: "Bank Management System",
@@ -72,8 +73,8 @@ const sampleProjects = [
     source:
       "https://github.com/pritiranjan-01/Bank-Management-System.git",
     website: null,
-    mediaSource: assets.BM,
-    poster: Posters.BMS,
+    mediaSource: projectDemos.MBS,
+    poster: projectPosters.BMS,
   },
   {
     title: "Todo Flow",
@@ -82,8 +83,8 @@ const sampleProjects = [
     stack: ["HTML", "CSS", "JavaScript"],
     source: "https://github.com/pritiranjan-01/Todo-Flow.git",
     website: "https://todoflows.netlify.app/",
-    mediaSource: assets.TF,
-    poster: Posters.TF,
+    mediaSource: projectDemos.TF,
+    poster: projectPosters.TF,
   },
   {
     title: "E-Commerce",
@@ -92,8 +93,8 @@ const sampleProjects = [
     stack: ["HTML", "CSS", "JavaScript", "Razor Pay API"],
     source: "https://github.com/pritiranjan-01/E-Commerce",
     website: null,
-    mediaSource: assets.EC,
-    poster: Posters.EC,
+    mediaSource: projectDemos.EC,
+    poster: projectPosters.EC,
   },
 ];
 
