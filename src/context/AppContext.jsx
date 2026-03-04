@@ -100,7 +100,7 @@ const sampleProjects = [
 const skillCategories = [
   {
     title: "Frontend",
-    skills: ["React", "JavaScript", "Tailwind CSS, HTML, CSS"],
+    skills: ["React", "JavaScript", "Tailwind CSS", "HTML", "CSS"],
   },
   {
     title: "Backend",
