@@ -7,7 +7,7 @@ const navLinkClasses =
   "text-xs sm:text-sm md:text-base font-medium tracking-wide px-2 sm:px-3 py-1 rounded-full transition-colors relative";
 
 const activeNavLinkClasses =
-  "after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-black dark:after:bg-white after:origin-center after:animate-slideUnderline";
+  "after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto after:w-[80%] after:h-0.5 after:bg-black dark:after:bg-white after:origin-center after:animate-slideUnderline";
 
 const Header = ({ isDarkMode, toggleTheme }) => {
   return (
