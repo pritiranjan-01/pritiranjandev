@@ -4,7 +4,10 @@ import { Sun, Moon } from "lucide-react";
 import { assets } from "../assets/asset";
 
 const navLinkClasses =
-  "text-xs sm:text-sm md:text-base font-medium tracking-wide px-2 sm:px-3 py-1 rounded-full hover:bg-light-bgSecondary hover:text-accent-DEFAULT dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark transition-colors";
+  "text-xs sm:text-sm md:text-base font-medium tracking-wide px-2 sm:px-3 py-1 rounded-full hover:bg-light-bgSecondary hover:text-accent-light dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark transition-colors relative";
+
+const activeNavLinkClasses =
+  "after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-black dark:after:bg-white after:origin-center after:animate-slideUnderline";
 
 const Header = ({ isDarkMode, toggleTheme }) => {
   return (
@@ -32,7 +35,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `${navLinkClasses} ${isActive ? "bg-light-bgSecondary text-accent-DEFAULT dark:bg-dark-bgSecondary dark:text-accent-dark" : ""}`
+                    `${navLinkClasses} ${isActive ? activeNavLinkClasses : ""}`
                   }
                   end
                 >
@@ -43,7 +46,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                 <NavLink
                   to="/projects"
                   className={({ isActive }) =>
-                    `${navLinkClasses} ${isActive ? "bg-light-bgSecondary text-accent-DEFAULT dark:bg-dark-bgSecondary dark:text-accent-dark" : ""}`
+                    `${navLinkClasses} ${isActive ? activeNavLinkClasses : ""}`
                   }
                 >
                   Projects
@@ -53,7 +56,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                 <NavLink
                   to="/blogs"
                   className={({ isActive }) =>
-                    `${navLinkClasses} ${isActive ? "bg-light-bgSecondary text-accent-DEFAULT dark:bg-dark-bgSecondary dark:text-accent-dark" : ""}`
+                    `${navLinkClasses} ${isActive ? activeNavLinkClasses : ""}`
                   }
                 >
                   Blogs
