@@ -161,7 +161,7 @@ const Home = () => {
                 Trident Academy Of Technology
               </h3>
               <p className="text-xs sm:text-sm text-light-textSecondary dark:text-dark-textSecondary">
-                B.Tech in Computer Science and Information Technology
+                B.Tech in Computer Science and Engineering
               </p>
               <div className="mt-1 sm:hidden text-xs text-light-textSecondary dark:text-dark-textSecondary">
                 2020 - 2024
