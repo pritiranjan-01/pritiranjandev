@@ -47,7 +47,7 @@ const ProjectCard = ({ project, index = 0, onPlay }) => {
               muted
               loop
               poster={project.poster}
-              // preload="none"
+              preload="metadata"
             >
               <source src={project.mediaSource} type="video/mp4" />
               Your browser does not support the video tag.
@@ -126,4 +126,4 @@ const ProjectCard = ({ project, index = 0, onPlay }) => {
   );
 };
 
-export default ProjectCard;
+export default React.memo(ProjectCard);
