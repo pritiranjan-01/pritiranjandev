@@ -15,7 +15,7 @@ const Footer = () => {
         const data = await response.json();
         setVisitorCount(data.count);
       } catch {
-        console.log("Unable to fetch visitor count");
+        // Silently fail if visitor count unavailable
       }
     };
 

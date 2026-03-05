@@ -3,7 +3,7 @@ import {
   Twitter,
   Linkedin,
   Youtube,
-  Newspaper,
+  Instagram,
   Github,
 } from "lucide-react";
 
@@ -21,10 +21,10 @@ const socials = [
     icon: Linkedin,
   },
   {
-    id: "substack",
-    label: "Substack",
-    href: "https://pritiranjanmohanty.substack.com",
-    icon: Newspaper,
+    id: "instagram",
+    label: "Instagram",
+    href: "https://instagram.com/curious_capturer",
+    icon: Instagram,
   },
   {
     id: "x",
@@ -37,20 +37,23 @@ const socials = [
 const SocialFeed = () => {
   return (
     <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5">
-      {socials.map(({ id, label, href, icon: Icon }) => (
-        <a
-          key={id}
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          className="flex h-16 sm:h-20 items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-black px-3 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-white hover:opacity-80 dark:bg-white dark:text-black transition-opacity"
-        >
-          <Icon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-          <span className="text-white dark:text-black truncate">
-            {label}
-          </span>
-        </a>
-      ))}
+      {socials.map((social) => {
+        const Icon = social.icon;
+        return (
+          <a
+            key={social.id}
+            href={social.href}
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-16 sm:h-20 items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-black px-3 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-white hover:opacity-80 dark:bg-white dark:text-black transition-opacity"
+          >
+            <Icon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+            <span className="text-white dark:text-black truncate">
+              {social.label}
+            </span>
+          </a>
+        );
+      })}
     </div>
   );
 };
