@@ -7,6 +7,7 @@ import {
 import CategoryFilter from "../components/CategoryFilter";
 import BlogList from "../components/BlogList";
 import BlogErrorState from "../components/BlogErrorState";
+import Loading from "../components/Loading";
 
 const Blogs = () => {
   const [categories, setCategories] = useState([]);
@@ -89,11 +90,7 @@ const Blogs = () => {
       </div>
 
       {/* Loading State */}
-      {loading && (
-        <div className="flex justify-center py-12">
-          <div className="h-10 w-10 animate-spin rounded-full border-2 border-accent-DEFAULT border-t-transparent dark:border-accent-dark" />
-        </div>
-      )}
+      {loading && <Loading />}
 
       {/* Blog List */}
       {!loading && blogs.length > 0 && <BlogList blogs={blogs} />}
