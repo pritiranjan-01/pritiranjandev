@@ -4,8 +4,8 @@ import {
   useEffect,
   useContext,
 } from "react";
-import { projectDemos } from "../assets/projectDemos/index";
-import { projectPosters } from "../assets/projectPosters/index";
+import { projectDemos } from "../assets/projectDemos/index.js";
+import { projectPosters } from "../assets/projectPosters/index.js";
 
 
 const sampleProjects = [
