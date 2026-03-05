@@ -18,7 +18,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className="container-custom py-6 sm:py-8 md:py-10">
+    <div className="container-custom py-6 sm:py-8 md:py-5">
       <header className="mb-6 sm:mb-8 md:mb-10">
         <h1 className="gradient-text mb-2 sm:mb-3 pb-2 text-3xl sm:text-4xl md:text-5xl">
           Projects

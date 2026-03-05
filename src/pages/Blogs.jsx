@@ -1,30 +1,116 @@
-import React from "react";
-import { Clock } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  getBlogs,
+  getBlogsByCategory,
+  getCategories,
+} from "../services/api";
+import CategoryFilter from "../components/CategoryFilter";
+import BlogList from "../components/BlogList";
+import BlogErrorState from "../components/BlogErrorState";
 
 const Blogs = () => {
+  const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Scroll to top on mount
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }, 0);
+    });
+  }, []);
+
+  // Load categories on mount
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const res = await getCategories();
+        setCategories(res.data);
+      } catch {
+        setCategories([]);
+      }
+    };
+    loadCategories();
+  }, []);
+
+  // Fetch blogs from API
+  const fetchBlogs = async (categorySlug) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = categorySlug
+        ? await getBlogsByCategory(categorySlug, {
+            sortBy: "createdAt",
+            direction: "desc",
+          })
+        : await getBlogs({
+            sortBy: "createdAt",
+            direction: "desc",
+          });
+      setBlogs(res.data);
+    } catch (err) {
+      setError(
+        err?.body?.message || err?.message || "Failed to load blogs",
+      );
+      setBlogs([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch blogs when category changes
+  useEffect(() => {
+    fetchBlogs(activeCategory);
+  }, [activeCategory]);
+
+  // Handle category filter
+  const handleCategoryChange = (categorySlug) => {
+    setActiveCategory(categorySlug);
+  };
+
   return (
-    <div className="container-custom flex min-h-[60vh] flex-col items-center justify-center py-8 sm:py-12 md:py-16 text-center">
-      <div className="glass w-full max-w-2xl rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 md:p-10 lg:p-14 animate-[blogs-pop-in_0.6s_cubic-bezier(0.16,1,0.3,1)]">
-        <div className="mb-4 sm:mb-5 md:mb-6 flex justify-center">
-          <Clock className="h-10 sm:h-12 md:h-14 w-10 sm:w-12 md:w-14 text-accent-DEFAULT animate-pulse dark:text-accent-dark" />
-        </div>
-        <p className="mb-2 text-[0.65rem] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-light-textSecondary dark:text-dark-textSecondary">
-          Explore posts
-        </p>
-        <h1 className="gradient-text mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl">
-          Blog section coming soon
+    <div className="container-custom py-8 sm:py-10 md:py-5">
+      {/* Header */}
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <h1 className="gradient-text pb-5 text-3xl font-bold sm:text-4xl md:text-5xl">
+          Blogs
         </h1>
-        <p className="text-xs sm:text-sm md:text-base text-light-textSecondary dark:text-dark-textSecondary">
-          A dedicated Spring Boot backend is being prepared for this
-          page. Once it is ready, you will find technical write‑ups,
-          project breakdowns, and learning notes here.
-        </p>
+
+        {/* Category Filter */}
+        <CategoryFilter
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        />
       </div>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center py-12">
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-accent-DEFAULT border-t-transparent dark:border-accent-dark" />
+        </div>
+      )}
+
+      {/* Blog List */}
+      {!loading && blogs.length > 0 && <BlogList blogs={blogs} />}
+
+      {/* Empty State */}
+      {!loading && blogs.length === 0 && (
+        <div className="text-center py-12 text-light-textSecondary dark:text-dark-textSecondary">
+          {error
+            ? "Something went wrong."
+            : "No blogs found. Check back later!"}
+        </div>
+      )}
+
       <style>{`
-        @keyframes blogs-pop-in {
-          0% { opacity: 0; transform: scale(0.9); }
-          100% { opacity: 1; transform: scale(1); }
+        @keyframes blogs-fade-in {
+          from { opacity: 0; transform: translateY(12px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
       `}</style>
     </div>
