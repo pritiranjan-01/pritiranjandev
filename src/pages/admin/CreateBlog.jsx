@@ -17,7 +17,7 @@ const CreateBlog = () => {
     excerpt: "",
     content: "",
     categoryId: "",
-    imageUrl: "",
+    thumbnailUrl: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ const CreateBlog = () => {
           excerpt: existingBlog.excerpt || "",
           content: existingBlog.content || "",
           categoryId: resolvedCategoryId,
-          imageUrl: existingBlog.imageUrl || existingBlog.thumbnailUrl || "",
+          thumbnailUrl: existingBlog.thumbnailUrl || existingBlog.thumbnailUrl || "",
         });
 
       } else {
@@ -67,7 +67,7 @@ const CreateBlog = () => {
         title: formData.title,
         excerpt: formData.excerpt,
         content: formData.content,
-        imageUrl: formData.imageUrl,
+        thumbnailUrl: formData.thumbnailUrl,
         categoryId: formData.categoryId,
         isPublished: true,
 
@@ -254,17 +254,17 @@ const CreateBlog = () => {
               </label>
               <input
                 type="url"
-                name="imageUrl"
+                name="thumbnailUrl"
                 className="w-full rounded-xl border border-light-border bg-light-bgSecondary/60 py-3 px-4 text-light-textPrimary outline-none transition-all focus:border-accent-light focus:bg-white focus:ring-1 focus:ring-accent-light dark:border-dark-border dark:bg-dark-bgSecondary/60 dark:text-dark-textPrimary dark:focus:border-accent-dark dark:focus:bg-black dark:focus:ring-accent-dark shadow-sm"
                 placeholder="https://example.com/image.png"
-                value={formData.imageUrl}
+                value={formData.thumbnailUrl}
                 onChange={handleChange}
               />
             </div>
-            {formData.imageUrl && (
+            {formData.thumbnailUrl && (
               <div className="mt-3 overflow-hidden rounded-xl border border-light-border dark:border-dark-border">
                 <img
-                  src={formData.imageUrl}
+                  src={formData.thumbnailUrl}
                   alt="Cover preview"
                   className="w-full h-32 object-cover"
                   onError={(e) => { e.target.style.display = 'none'; }}
