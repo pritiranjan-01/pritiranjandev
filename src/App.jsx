@@ -13,10 +13,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
-import Dashboard from "./pages/admin/Dashbord";
-import Category from "./pages/admin/Category";
-import CreateBlog from "./pages/admin/CreateBlog";
-import ManageBlog from "./pages/admin/ManageBlog";
+
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import AdminLayout from "./components/admin/AdminLayout";
 
@@ -27,6 +24,10 @@ const BlogPost = lazy(() => import("./pages/BlogPost"));
 const Sitemap = lazy(() => import("./pages/Sitemap"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Login = lazy(() => import("./pages/admin/Login"));
+const Dashboard = lazy(() => import("./pages/admin/Dashbord"));
+const Category = lazy(() => import("./pages/admin/Category"));
+const CreateBlog = lazy(() => import("./pages/admin/CreateBlog"));
+const ManageBlog = lazy(() => import("./pages/admin/ManageBlog"));
 
 // Loading fallback component
 const PageLoader = () => (
