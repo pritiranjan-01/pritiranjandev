@@ -4,6 +4,7 @@
  */
 
 import axios from "axios";
+import { CloudCog } from "lucide-react";
 
 const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL || "";
 
@@ -48,6 +49,17 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      logout();
+      window.location.href = "/admin/auth/signin";
+    }
+    return Promise.reject(error);
+  }
+);
+
 async function request(method, url, { params, data } = {}) {
   try {
     const response = await api.request({
@@ -60,9 +72,9 @@ async function request(method, url, { params, data } = {}) {
   } catch (error) {
     const err = new Error(
       error.response?.statusText ||
-        error.response?.data?.message ||
-        error.message ||
-        "Request failed",
+      error.response?.data?.message ||
+      error.message ||
+      "Request failed",
     );
     err.status = error.response?.status;
     err.body = error.response?.data ?? null;
@@ -72,11 +84,13 @@ async function request(method, url, { params, data } = {}) {
 
 // ——— Auth ———
 export async function login({ username, password }) {
-  const data = await request("POST", "/api/auth/login", {
+  const res = await request("POST", "/api/auth/login", {
     data: { username, password },
   });
-  if (data?.token) setAuthToken(data.token);
-  return data;
+  if (res.data) {
+    setAuthToken(res.data);
+  }
+  return res;
 }
 
 // ——— Blogs ———

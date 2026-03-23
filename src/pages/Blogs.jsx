@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {
-  getBlogs,
-  getBlogsByCategory,
-  getCategories,
-} from "../services/api";
+import React, { useEffect, useState, useMemo } from "react";
+import { useBlogContext } from "../context/BlogContext";
 import CategoryFilter from "../components/CategoryFilter";
 import BlogList from "../components/BlogList";
 import BlogErrorState from "../components/BlogErrorState";
 import Loading from "../components/Loading";
 
 const Blogs = () => {
-  const [categories, setCategories] = useState([]);
+  const { blogs: allBlogs, categories, loading, error } = useBlogContext();
   const [activeCategory, setActiveCategory] = useState(null);
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -25,50 +18,22 @@ const Blogs = () => {
     });
   }, []);
 
-  // Load categories on mount
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const res = await getCategories();
-        setCategories(res.data);
-      } catch {
-        setCategories([]);
-      }
-    };
-    loadCategories();
-  }, []);
-
-  // Fetch blogs from API
-  const fetchBlogs = async (categorySlug) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = categorySlug
-        ? await getBlogsByCategory(categorySlug, {
-            sortBy: "createdAt",
-            direction: "desc",
-          })
-        : await getBlogs({
-            sortBy: "createdAt",
-            direction: "desc",
-          });
-      setBlogs(res.data);
-    } catch (err) {
-      setError(
-        err?.body?.message || err?.message || "Failed to load blogs",
+  // Filter blogs based on activeCategory client-side
+  const filteredBlogs = useMemo(() => {
+    if (!activeCategory) return allBlogs;
+    return allBlogs.filter((blog) => {
+      return (
+        blog.categoryName === activeCategory ||
+        blog.categorySlug === activeCategory ||
+        blog.category?.name === activeCategory ||
+        blog.category?.slug === activeCategory ||
+        String(blog.categoryId) === activeCategory ||
+        String(blog.category?.id) === activeCategory ||
+        String(blog.category) === activeCategory
       );
-      setBlogs([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    });
+  }, [allBlogs, activeCategory]);
 
-  // Fetch blogs when category changes
-  useEffect(() => {
-    fetchBlogs(activeCategory);
-  }, [activeCategory]);
-
-  // Handle category filter
   const handleCategoryChange = (categorySlug) => {
     setActiveCategory(categorySlug);
   };
@@ -93,10 +58,10 @@ const Blogs = () => {
       {loading && <Loading />}
 
       {/* Blog List */}
-      {!loading && blogs.length > 0 && <BlogList blogs={blogs} />}
+      {!loading && filteredBlogs.length > 0 && <BlogList blogs={filteredBlogs} />}
 
       {/* Empty State */}
-      {!loading && blogs.length === 0 && (
+      {!loading && filteredBlogs.length === 0 && (
         <div className="text-center py-12 text-light-textSecondary dark:text-dark-textSecondary">
           {error
             ? "Something went wrong."
