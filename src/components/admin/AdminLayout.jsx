@@ -8,13 +8,17 @@ import {
   LogOut,
   Menu,
   X,
-  PlusCircle
+  PlusCircle,
+  Sun,
+  Moon
 } from "lucide-react";
 import { logout } from "../../services/api";
+import { useAppContext } from "../../context/AppContext";
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const { isDarkMode, toggleTheme } = useAppContext();
 
   const handleLogout = () => {
     logout();
@@ -57,12 +61,26 @@ const AdminLayout = () => {
             <span className="text-xl font-bold bg-gradient-to-r from-accent-light to-[#0096ff] bg-clip-text text-transparent dark:from-accent-dark dark:to-[#4facfe]">
               Admin Panel
             </span>
-            <button 
-              className="lg:hidden text-light-textSecondary dark:text-dark-textSecondary"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              <X className="w-6 h-6" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="hidden lg:flex rounded-full border border-light-border p-1.5 sm:p-2 text-light-textPrimary shadow-sm hover:bg-light-bgSecondary dark:border-dark-border dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary transition-colors"
+                aria-label="Toggle theme"
+              >
+                {isDarkMode ? (
+                  <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
+                ) : (
+                  <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
+                )}
+              </button>
+              <button 
+                className="lg:hidden text-light-textSecondary dark:text-dark-textSecondary"
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -126,16 +144,30 @@ const AdminLayout = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-full overflow-hidden w-full relative">
         {/* Mobile Header */}
-        <header className="lg:hidden flex items-center h-16 px-4 bg-white dark:bg-dark-bgSecondary border-b border-light-border dark:border-dark-border sticky top-0 z-30">
+        <header className="lg:hidden flex items-center justify-between h-16 px-4 bg-white dark:bg-dark-bgSecondary border-b border-light-border dark:border-dark-border sticky top-0 z-30">
+          <div className="flex items-center">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="p-2 -ml-2 text-light-textSecondary dark:text-dark-textSecondary rounded-lg hover:bg-light-bgSecondary dark:hover:bg-dark-bgSecondary/50"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <span className="ml-4 font-bold text-light-textPrimary dark:text-dark-textPrimary">
+              Admin Panel
+            </span>
+          </div>
           <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="p-2 -ml-2 text-light-textSecondary dark:text-dark-textSecondary rounded-lg hover:bg-light-bgSecondary dark:hover:bg-dark-bgSecondary/50"
+            type="button"
+            onClick={toggleTheme}
+            className="rounded-full border border-light-border p-1.5 sm:p-2 text-light-textPrimary shadow-sm hover:bg-light-bgSecondary dark:border-dark-border dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary transition-colors"
+            aria-label="Toggle theme"
           >
-            <Menu className="w-6 h-6" />
+            {isDarkMode ? (
+              <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
+            ) : (
+              <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
+            )}
           </button>
-          <span className="ml-4 font-bold text-light-textPrimary dark:text-dark-textPrimary">
-            Admin Panel
-          </span>
         </header>
 
         {/* Page Content */}
