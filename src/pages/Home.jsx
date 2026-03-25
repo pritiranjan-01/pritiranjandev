@@ -6,10 +6,11 @@ import { useAppContext } from "../context/AppContext.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import VideoModal from "../components/VideoModal.jsx";
 import resumePDF from "../assets/util/Pritiranjan_Java_Developer_Resume.pdf";
+import { GitHubCalendar } from 'react-github-calendar';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { skillCategories, sampleProjects } = useAppContext();
+  const { skillCategories, sampleProjects, isDarkMode } = useAppContext();
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -116,6 +117,20 @@ const Home = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* GitHub Calendar */}
+        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+          <h2 className="mb-5 sm:mb-6 text-xl sm:text-2xl md:text-3xl">
+            GitHub Contributions
+          </h2>
+          <div className="flex justify-center w-full py-6 px-2 sm:px-4 overflow-x-auto rounded-2xl border border-light-border dark:border-dark-border bg-light-bgPrimary dark:bg-dark-bgPrimary shadow-sm hover:shadow-md transition-shadow duration-300">
+            <GitHubCalendar
+              username="pritiranjan-01"
+              colorScheme={isDarkMode ? "dark" : "light"}
+              style={{ margin: 'auto' }}
+            />
           </div>
         </section>
 
