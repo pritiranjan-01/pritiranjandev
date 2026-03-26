@@ -11,13 +11,16 @@ const CreateBlog = () => {
 
   const { blogs: allBlogs, categories, loading: contextLoading, createBlogAction, updateBlogAction } = useBlogContext();
 
-  const [formData, setFormData] = useState({
+  const defaultFormState = {
     title: "",
     excerpt: "",
     content: "",
     categoryId: "",
     thumbnailUrl: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(defaultFormState);
+  const [initialData, setInitialData] = useState(defaultFormState);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -35,19 +38,36 @@ const CreateBlog = () => {
         );
         const resolvedCategoryId = matchedCategory ? matchedCategory.id.toString() : "";
 
-        setFormData({
+        const loadedData = {
           title: existingBlog.title || "",
           excerpt: existingBlog.excerpt || "",
           content: existingBlog.content || "",
           categoryId: resolvedCategoryId,
-          thumbnailUrl: existingBlog.thumbnailUrl || existingBlog.thumbnailUrl || "",
-        });
+          thumbnailUrl: existingBlog.thumbnailUrl || "",
+        };
+
+        setFormData(loadedData);
+        setInitialData(loadedData);
 
       } else {
         setError("Blog post not found. It may have been deleted.");
       }
     }
   }, [slug, isEditing, allBlogs, contextLoading]);
+
+  // Prevent accidental page refresh when there are unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      const isDirty = JSON.stringify(formData) !== JSON.stringify(initialData);
+      if (isDirty) {
+        e.preventDefault();
+        e.returnValue = ''; // Setting this is required for modern browsers to show the prompt
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [formData, initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
