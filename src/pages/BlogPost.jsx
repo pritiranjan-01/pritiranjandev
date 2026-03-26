@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { ArrowLeft } from "lucide-react";
 import { getBlogBySlug } from "../services/api";
 import BlogErrorState from "../components/BlogErrorState";
@@ -116,8 +117,8 @@ const BlogPost = () => {
           </div>
         )}
 
-        <div className="blog-content max-w-none text-light-textSecondary dark:text-dark-textSecondary [&_h1]:mb-4 [&_h1]:mt-8 [&_h1]:text-2xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-lg [&_p]:mb-3 [&_p]:leading-relaxed [&_ul]:mb-3 [&_ul]:list-inside [&_ul]:list-disc [&_ol]:mb-3 [&_ol]:list-inside [&_ol]:list-decimal [&_a]:text-accent-light [&_a]:underline [&_a]:hover:no-underline dark:[&_a]:text-accent-dark [&_pre]:overflow-x-auto [&_code]:rounded [&_code]:bg-light-bgSecondary [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-sm dark:[&_code]:bg-dark-bgSecondary">
-          <ReactMarkdown>{blog.content || ""}</ReactMarkdown>
+        <div className="blog-content max-w-none text-light-textSecondary dark:text-dark-textSecondary [&_h1]:mb-4 [&_h1]:mt-8 [&_h1]:text-2xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-lg [&_p]:mb-3 [&_p]:leading-relaxed [&_ul]:mb-3 [&_ul]:list-inside [&_ul]:list-disc [&_ol]:mb-3 [&_ol]:list-inside [&_ol]:list-decimal [&_a]:text-accent-light [&_a]:underline [&_a]:hover:no-underline dark:[&_a]:text-accent-dark [&_pre]:overflow-x-auto [&_code]:rounded [&_code]:bg-light-bgSecondary [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-sm dark:[&_code]:bg-dark-bgSecondary [&_blockquote]:border-l-4 [&_blockquote]:border-light-border dark:[&_blockquote]:border-dark-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-4 [&_table]:w-full [&_table]:my-4 [&_table]:border-collapse [&_th]:border [&_th]:border-light-border dark:[&_th]:border-dark-border [&_th]:px-4 [&_th]:py-2 [&_th]:bg-light-bgSecondary dark:[&_th]:bg-dark-bgSecondary [&_th]:font-semibold [&_td]:border [&_td]:border-light-border dark:[&_td]:border-dark-border [&_td]:px-4 [&_td]:py-2 [&_hr]:my-8 [&_hr]:border-light-border dark:[&_hr]:border-dark-border">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.content || ""}</ReactMarkdown>
         </div>
       </article>
 
