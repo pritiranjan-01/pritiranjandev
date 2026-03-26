@@ -101,6 +101,8 @@ const BlogPost = () => {
             </span>
             <span>·</span>
             <span>{formatDate(blog.createdAt)}</span>
+            <span>·</span>
+            <span className="rounded-full px-2 py-1 bg-gray-500 text-white">{blog.categoryName}</span>
           </div>
         </header>
 
