@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Loader, Save, ArrowLeft, Image as ImageIcon, FileText, Settings, AlertCircle, Eye as EyeIcon, Edit3 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import { Loader, Save, ArrowLeft, Image as ImageIcon, FileText, Settings, AlertCircle } from "lucide-react";
 import { useBlogContext } from "../../context/BlogContext";
+import MarkdownEditor from "../../components/admin/MarkdownEditor";
 
 const CreateBlog = () => {
   const { slug } = useParams();
   const isEditing = Boolean(slug);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("write");
 
   const { blogs: allBlogs, categories, loading: contextLoading, createBlogAction, updateBlogAction } = useBlogContext();
 
@@ -168,53 +167,15 @@ const CreateBlog = () => {
             </div>
 
             <div className="space-y-3 pt-2">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
-                <label className="text-sm font-medium text-light-textPrimary dark:text-dark-textPrimary">
-                  Main Content (Markdown supported)
-                </label>
-                <div className="flex self-start sm:self-auto bg-light-bgSecondary dark:bg-dark-bgSecondary p-1 rounded-lg">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("write")}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${activeTab === "write"
-                      ? "bg-white dark:bg-black text-accent-light dark:text-accent-dark shadow-sm"
-                      : "text-light-textSecondary dark:text-dark-textSecondary hover:text-light-textPrimary dark:hover:text-dark-textPrimary"
-                      }`}
-                  >
-                    <Edit3 className="w-4 h-4" /> Write
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("preview")}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${activeTab === "preview"
-                      ? "bg-white dark:bg-black text-accent-light dark:text-accent-dark shadow-sm"
-                      : "text-light-textSecondary dark:text-dark-textSecondary hover:text-light-textPrimary dark:hover:text-dark-textPrimary"
-                      }`}
-                  >
-                    <EyeIcon className="w-4 h-4" /> Preview
-                  </button>
-                </div>
-              </div>
+              <label className="text-sm font-medium text-light-textPrimary dark:text-dark-textPrimary">
+                Main Content (Markdown supported)
+              </label>
 
-              {activeTab === "write" ? (
-                <textarea
-                  name="content"
-                  required
-                  rows="15"
-                  className="w-full hidden-scrollbar rounded-xl border border-light-border bg-light-bgSecondary/60 py-3 px-4 text-light-textPrimary outline-none transition-all focus:border-accent-light focus:bg-white focus:ring-1 focus:ring-accent-light dark:border-dark-border dark:bg-dark-bgSecondary/60 dark:text-dark-textPrimary dark:focus:border-accent-dark dark:focus:bg-black dark:focus:ring-accent-dark shadow-sm font-mono text-sm leading-relaxed"
-                  placeholder="Write your markdown content here..."
-                  value={formData.content}
-                  onChange={handleChange}
-                />
-              ) : (
-                <div className="w-full min-h-[360px] max-h-[500px] overflow-y-auto rounded-xl border border-light-border dark:border-dark-border bg-white dark:bg-dark-bgSecondary/60 py-4 px-6 shadow-sm prose prose-sm md:prose-base dark:prose-invert max-w-none">
-                  {formData.content ? (
-                    <ReactMarkdown>{formData.content}</ReactMarkdown>
-                  ) : (
-                    <p className="text-light-textTertiary dark:text-dark-textTertiary italic text-center mt-32">Nothing to preview yet.</p>
-                  )}
-                </div>
-              )}
+              <MarkdownEditor 
+                value={formData.content} 
+                onChange={(val) => setFormData(prev => ({ ...prev, content: val || "" }))} 
+                placeholder="Write your amazing post here..."
+              />
             </div>
           </div>
         </div>
