@@ -39,19 +39,7 @@ export default {
         "glass-light": "0 4px 30px rgba(0, 0, 0, 0.05)",
         "glass-dark": "0 4px 30px rgba(0, 0, 0, 0.3)",
       },
-      keyframes: {
-        slideUnderline: {
-          from: {
-            transform: "scaleX(0)",
-          },
-          to: {
-            transform: "scaleX(1)",
-          },
-        },
-      },
-      animation: {
-        slideUnderline: "slideUnderline 0.4s ease-out forwards",
-      },
+
     },
   },
   plugins: [require("@tailwindcss/typography")],

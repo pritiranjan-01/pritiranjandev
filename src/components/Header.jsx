@@ -3,11 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { utils } from "../assets/util/util.js";
 
+import { motion } from "framer-motion";
+
 const navLinkClasses =
   "text-xs sm:text-sm md:text-base font-medium tracking-wide px-2 sm:px-3 py-1 rounded-full transition-colors relative";
-
-const activeNavLinkClasses =
-  "after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto after:w-[80%] after:h-0.5 after:bg-black dark:after:bg-white after:origin-center after:animate-slideUnderline";
 
 const Header = ({ isDarkMode, toggleTheme }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,7 +29,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-50 border-b border-light-border bg-light-bgPrimary/90 backdrop-blur-md dark:border-dark-border dark:bg-black/90">
+      <motion.header
+        className="sticky top-0 z-50 border-b border-light-border bg-light-bgPrimary/90 backdrop-blur-md dark:border-dark-border dark:bg-black/90"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
         <div className="container-custom flex items-center justify-between py-3 sm:py-4">
           {/* Logo / Title */}
           <Link to="/" className="flex items-center gap-2 sm:gap-3">
@@ -53,32 +57,56 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                 <li>
                   <NavLink
                     to="/"
-                    className={({ isActive }) =>
-                      `${navLinkClasses} ${isActive ? activeNavLinkClasses : ""}`
-                    }
+                    className={navLinkClasses}
                     end
                   >
-                    Home
+                    {({ isActive }) => (
+                      <>
+                        Home
+                        {isActive && (
+                          <motion.div
+                            layoutId="underline"
+                            className="absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 bg-black dark:bg-white"
+                          />
+                        )}
+                      </>
+                    )}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
                     to="/projects"
-                    className={({ isActive }) =>
-                      `${navLinkClasses} ${isActive ? activeNavLinkClasses : ""}`
-                    }
+                    className={navLinkClasses}
                   >
-                    Projects
+                    {({ isActive }) => (
+                      <>
+                        Projects
+                        {isActive && (
+                          <motion.div
+                            layoutId="underline"
+                            className="absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 bg-black dark:bg-white"
+                          />
+                        )}
+                      </>
+                    )}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
                     to="/blogs"
-                    className={({ isActive }) =>
-                      `${navLinkClasses} ${isActive ? activeNavLinkClasses : ""}`
-                    }
+                    className={navLinkClasses}
                   >
-                    Blogs
+                    {({ isActive }) => (
+                      <>
+                        Blogs
+                        {isActive && (
+                          <motion.div
+                            layoutId="underline"
+                            className="absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 bg-black dark:bg-white"
+                          />
+                        )}
+                      </>
+                    )}
                   </NavLink>
                 </li>
               </ul>
@@ -137,10 +165,9 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   <NavLink
                     to="/"
                     className={({ isActive }) =>
-                      `block py-2 px-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                      `block py-2 px-3 rounded-lg transition-colors ${isActive
+                        ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                        : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
                       }`
                     }
                     end
@@ -153,10 +180,9 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   <NavLink
                     to="/projects"
                     className={({ isActive }) =>
-                      `block py-2 px-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                      `block py-2 px-3 rounded-lg transition-colors ${isActive
+                        ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                        : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
                       }`
                     }
                     onClick={closeMobileMenu}
@@ -168,10 +194,9 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   <NavLink
                     to="/blogs"
                     className={({ isActive }) =>
-                      `block py-2 px-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                      `block py-2 px-3 rounded-lg transition-colors ${isActive
+                        ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                        : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
                       }`
                     }
                     onClick={closeMobileMenu}
@@ -183,7 +208,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
             </nav>
           </div>
         )}
-      </header>
+      </motion.header>
     </>
   );
 };

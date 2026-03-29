@@ -4,7 +4,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { AppProvider, useAppContext } from "./context/AppContext";
 import { BlogProvider } from "./context/BlogContext";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -40,6 +40,29 @@ function AppLayout() {
   const { isDarkMode, toggleTheme } = useAppContext();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+
+  // Dynamic document title based on current route
+  useEffect(() => {
+    const path = location.pathname;
+    let title = "Pritiranjan Mohanty | Java & Spring Boot Developer";
+
+    if (path === "/") title = "Home | Pritiranjan Mohanty";
+    else if (path === "/projects") title = "Projects | Pritiranjan Mohanty";
+    else if (path === "/blogs") title = "Blogs | Pritiranjan Mohanty";
+    else if (path.startsWith("/blogs/")) title = "Blog | Pritiranjan Mohanty";
+    else if (path === "/sitemap") title = "Sitemap | Pritiranjan Mohanty";
+    else if (path.startsWith("/admin")) {
+      if (path.includes("dashboard")) title = "Dashboard | Admin";
+      else if (path.includes("category")) title = "Categories | Admin";
+      else if (path.includes("create-blog")) title = "Create Blog | Admin";
+      else if (path.includes("manage-blog")) title = "Manage Blogs | Admin";
+      else if (path.includes("edit-blog")) title = "Edit Blog | Admin";
+      else if (path.includes("signin")) title = "Login | Admin";
+      else title = "Admin Portal";
+    }
+
+    document.title = title;
+  }, [location.pathname]);
 
   return (
     <div className="flex min-h-screen flex-col">

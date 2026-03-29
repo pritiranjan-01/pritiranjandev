@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Loader, Trash2, Plus, AlertCircle, LayoutList } from "lucide-react";
 import { useBlogContext } from "../../context/BlogContext";
+import { motion } from "framer-motion";
 
 const Category = () => {
   const { categories, loading, error: contextError, createCategoryAction, deleteCategoryAction } = useBlogContext();
@@ -46,7 +47,12 @@ const Category = () => {
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-5xl mx-auto min-h-screen">
+    <motion.div 
+      className="p-6 md:p-10 max-w-5xl mx-auto min-h-screen"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-light-textPrimary dark:text-dark-textPrimary">
           Manage Categories
@@ -150,7 +156,7 @@ const Category = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

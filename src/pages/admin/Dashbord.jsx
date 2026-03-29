@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { PenTool, List, LayoutList, LogOut, LayoutDashboard } from "lucide-react";
+import { motion } from "framer-motion";
 import { logout } from "../../services/api";
 
 const Dashboard = () => {
@@ -36,7 +37,12 @@ const Dashboard = () => {
 
   return (
     <div className="p-6 md:p-10 max-w-6xl mx-auto min-h-screen">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-10 gap-4 sm:gap-6">
+      <motion.div 
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-10 gap-4 sm:gap-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="p-2.5 sm:p-3 bg-accent-light/10 dark:bg-accent-dark/10 rounded-xl flex-shrink-0">
             <LayoutDashboard className="w-6 h-6 sm:w-8 sm:h-8 text-accent-light dark:text-accent-dark" />
@@ -58,31 +64,37 @@ const Dashboard = () => {
           <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
           Sign Out
         </button>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {menuItems.map((item, idx) => (
-          <Link
+          <motion.div
             key={idx}
-            to={item.link}
-            className="group flex flex-col p-6 rounded-2xl bg-white dark:bg-dark-bgSecondary/40 border border-light-border dark:border-dark-border hover:border-accent-light dark:hover:border-accent-dark hover:shadow-lg transition-all duration-300 relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
           >
-            <div className={`p-4 rounded-xl w-fit mb-6 transition-transform group-hover:scale-110 ${item.color}`}>
-              {item.icon}
-            </div>
-            <h2 className="text-xl font-bold text-light-textPrimary dark:text-dark-textPrimary mb-2">
-              {item.title}
-            </h2>
-            <p className="text-light-textSecondary dark:text-dark-textSecondary">
-              {item.description}
-            </p>
-            
-            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity translate-x-2 group-hover:translate-x-0">
-              <svg className="w-6 h-6 text-accent-light dark:text-accent-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
+            <Link
+              to={item.link}
+              className="group flex flex-col h-full p-6 rounded-2xl bg-white dark:bg-dark-bgSecondary/40 border border-light-border dark:border-dark-border hover:border-accent-light dark:hover:border-accent-dark hover:shadow-lg transition-all duration-300 relative overflow-hidden"
+            >
+              <div className={`p-4 rounded-xl w-fit mb-6 transition-transform group-hover:scale-110 ${item.color}`}>
+                {item.icon}
+              </div>
+              <h2 className="text-xl font-bold text-light-textPrimary dark:text-dark-textPrimary mb-2">
+                {item.title}
+              </h2>
+              <p className="text-light-textSecondary dark:text-dark-textSecondary flex-1">
+                {item.description}
+              </p>
+              
+              <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity translate-x-2 group-hover:translate-x-0">
+                <svg className="w-6 h-6 text-accent-light dark:text-accent-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </div>

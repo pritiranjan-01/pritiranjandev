@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Loader, Save, ArrowLeft, Image as ImageIcon, FileText, Settings, AlertCircle } from "lucide-react";
 import { useBlogContext } from "../../context/BlogContext";
 import MarkdownEditor from "../../components/admin/MarkdownEditor";
+import { motion } from "framer-motion";
 
 const CreateBlog = () => {
   const { slug } = useParams();
@@ -123,7 +124,12 @@ const CreateBlog = () => {
   }
 
   return (
-    <div className="p-4 sm:p-6 md:p-10 max-w-5xl mx-auto min-h-screen">
+    <motion.div 
+      className="p-4 sm:p-6 md:p-10 max-w-5xl mx-auto min-h-screen"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="mb-6 sm:mb-8 flex items-start sm:items-center gap-3 sm:gap-4">
         <Link
           to="/admin/manage-blog"
@@ -270,7 +276,7 @@ const CreateBlog = () => {
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

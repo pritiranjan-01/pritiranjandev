@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader, Edit, Trash2, Plus, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { useBlogContext } from "../../context/BlogContext";
+import { motion } from "framer-motion";
 
 const ManageBlog = () => {
   const { blogs: allBlogs, loading, error, deleteBlogAction } = useBlogContext();
@@ -35,7 +36,12 @@ const ManageBlog = () => {
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto min-h-screen">
+    <motion.div 
+      className="p-6 md:p-10 max-w-7xl mx-auto min-h-screen"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-light-textPrimary dark:text-dark-textPrimary">
@@ -188,7 +194,7 @@ const ManageBlog = () => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Mail, Lock, Eye, EyeOff, Loader, CloudCog } from "lucide-react";
 import { login, getAuthToken } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,12 @@ const Login = () => {
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center p-4">
-      <div className="w-full max-w-md rounded-2xl p-6 sm:p-8 transition-all duration-300 border-[1px] border-black dark:border-white ">
+      <motion.div 
+        className="w-full max-w-md rounded-2xl p-6 sm:p-8 transition-all duration-300 border-[1px] border-black dark:border-white "
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         {/* Header section */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent-light text-white shadow-glass-light dark:bg-accent-dark dark:text-black dark:shadow-glass-dark">
@@ -107,7 +113,7 @@ const Login = () => {
             {isLoading ? <Loader className="h-5 w-5 animate-spin" /> : "Sign In"}
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

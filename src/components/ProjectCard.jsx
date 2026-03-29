@@ -1,5 +1,6 @@
 import React from "react";
 import { Play, Eye, Github, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 
 const ProjectCard = ({ project, index = 0, onPlay }) => {
   // Helper function to detect media type based on file extension
@@ -33,11 +34,13 @@ const ProjectCard = ({ project, index = 0, onPlay }) => {
   const mediaType = getMediaType(project.mediaSource);
 
   return (
-    <article
-      className="glass flex flex-col overflow-hidden rounded-xl sm:rounded-2xl transition-transform duration-300 hover:-translate-y-1"
-      style={{
-        animation: `projects-fade-in 0.5s ease-out ${index * 0.06}s both`,
-      }}
+    <motion.article
+      className="glass flex flex-col overflow-hidden rounded-xl sm:rounded-2xl"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={{ y: -5 }}
     >
       <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-light-border dark:bg-dark-border group">
         {project.mediaSource && mediaType === "video" ? (
@@ -122,7 +125,7 @@ const ProjectCard = ({ project, index = 0, onPlay }) => {
           )}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };
 

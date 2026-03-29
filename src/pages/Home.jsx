@@ -7,6 +7,7 @@ import ProjectCard from "../components/ProjectCard.jsx";
 import VideoModal from "../components/VideoModal.jsx";
 import resumePDF from "../assets/util/Pritiranjan_Java_Developer_Resume.pdf";
 import { GitHubCalendar } from 'react-github-calendar';
+import { motion } from "framer-motion";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,12 +26,20 @@ const Home = () => {
 
   return (
     <>
-      <div
+      <motion.div
         className="container-custom py-8 sm:py-10 md:py-12 lg:py-14"
-        style={{ animation: "home-fade-in 0.5s ease-out both" }}
+        initial={{ opacity: 0, y: 12, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* Hero: name, picture, designation */}
-        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20 grid gap-6 sm:gap-8 md:grid-cols-[auto,minmax(0,1fr)] md:items-center">
+        <motion.section 
+          className="mb-12 sm:mb-14 md:mb-16 lg:mb-20 grid gap-6 sm:gap-8 md:grid-cols-[auto,minmax(0,1fr)] md:items-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className="mx-auto h-60 w-48 sm:h-72 sm:w-56 md:h-80 md:w-64 rounded-2xl sm:rounded-3xl bg-black shadow-glass-light ring-2 sm:ring-4 ring-white/60 transition-transform duration-300 hover:-translate-y-1 dark:bg-white dark:shadow-glass-dark">
             <img
               src={utils.profile}
@@ -51,10 +60,16 @@ const Home = () => {
               user-centric web applications.
             </p>
           </div>
-        </section>
+        </motion.section>
 
         {/* Profile Summary */}
-        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+        <motion.section
+          className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-10 lg:gap-16">
             <div className="md:max-w-2xl lg:max-w-3xl">
               <h2 className="mb-3 text-xl sm:text-2xl md:text-3xl">
@@ -89,10 +104,16 @@ const Home = () => {
               </a>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Skills */}
-        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+        <motion.section
+          className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <h2 className="mb-5 sm:mb-6 text-xl sm:text-2xl md:text-3xl">
             Skills
           </h2>
@@ -118,10 +139,16 @@ const Home = () => {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* GitHub Calendar */}
-        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+        <motion.section
+          className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <h2 className="mb-5 sm:mb-6 text-xl sm:text-2xl md:text-3xl">
             GitHub Contributions
           </h2>
@@ -132,10 +159,16 @@ const Home = () => {
               style={{ margin: 'auto' }}
             />
           </div>
-        </section>
+        </motion.section>
 
         {/* Projects Preview */}
-        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+        <motion.section
+          className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <h2 className="mb-5 sm:mb-6 text-xl sm:text-2xl md:text-3xl">
             Featured Projects
           </h2>
@@ -161,7 +194,7 @@ const Home = () => {
               View all projects
             </button>
           </div>
-        </section>
+        </motion.section>
 
         <VideoModal
           isOpen={isModalOpen}
@@ -173,7 +206,13 @@ const Home = () => {
         />
 
         {/* Education */}
-        <section className="mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+        <motion.section
+          className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <h2 className="mb-5 sm:mb-6 text-xl sm:text-2xl md:text-3xl">
             Education
           </h2>
@@ -225,29 +264,21 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Social handles + latest posts */}
-        <section>
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <h2 className="mb-5 sm:mb-6 text-xl sm:text-2xl md:text-3xl">
             Social handles
           </h2>
           <SocialFeed />
-        </section>
-      </div>
-
-      <style>{`
-      @keyframes home-fade-in {
-        from {
-          opacity: 0;
-          transform: translateY(12px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-    `}</style>
+        </motion.section>
+      </motion.div>
     </>
   );
 };
