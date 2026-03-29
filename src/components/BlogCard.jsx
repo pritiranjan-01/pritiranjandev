@@ -41,9 +41,10 @@ const BlogCard = ({ blog, index = 0 }) => {
         <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">
           {formatDate(blog.createdAt)}
         </p>
-        <span className="rounded-full bg-light-bgPrimary dark:bg-dark-bgPrimary px-2.5 py-1 text-xs font-medium text-light-textSecondary dark:text-dark-textSecondary border border-light-border dark:border-dark-border">
+        {/* Category Badge */}
+        {/* <span className="rounded-full bg-light-bgPrimary dark:bg-dark-bgPrimary px-2.5 py-1 text-xs font-medium text-light-textSecondary dark:text-dark-textSecondary border border-light-border dark:border-dark-border">
           {blog.categoryName}
-        </span>
+        </span> */}
       </div>
     </Link>
   );

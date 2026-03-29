@@ -41,6 +41,8 @@ function AppLayout() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
+  const isBlogRoute = location.pathname.startsWith("/blogs");
+
   // Dynamic document title based on current route
   useEffect(() => {
     const path = location.pathname;
@@ -66,7 +68,7 @@ function AppLayout() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      {!isAdminRoute && <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />}
+      {!isAdminRoute && !isBlogRoute && <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />}
 
       <main id="main-content" className="flex-1">
         <Suspense fallback={<PageLoader />}>

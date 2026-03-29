@@ -2,15 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Linkedin, Twitter, Link as LinkIcon, CheckCircle2, Calendar, Clock } from "lucide-react";
 import { getBlogBySlug } from "../services/api";
 import BlogErrorState from "../components/BlogErrorState";
+import BlogLayout from "../components/BlogLayout";
 
 const BlogPost = () => {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const shareTwitter = () => {
+    const text = encodeURIComponent(`${blog?.title}. Posted By @curious_ranjan\n\n`);
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank");
+  };
+
+  const shareLinkedIn = () => {
+    // Utilize LinkedIn's feed active share intent to pre-fill the user's post text box
+    const text = encodeURIComponent(`${blog?.title}\n\n${window.location.href}`);
+    window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${text}`, "_blank");
+  };
 
   // Scroll to top on mount
   useEffect(() => {
@@ -32,6 +52,11 @@ const BlogPost = () => {
 
         const res = await getBlogBySlug(slug);
         setBlog(res.data);
+        
+        // Optimizing SEO: Dynamic browser tab title
+        if (res.data?.title) {
+          document.title = `${res.data.title} | Pritiranjan Mohanty`;
+        }
       } catch (err) {
         setError(
           err?.body?.message || err?.message || "Post not found",
@@ -66,22 +91,28 @@ const BlogPost = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="container-custom flex min-h-[50vh] items-center justify-center py-12">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-accent-DEFAULT border-t-transparent dark:border-accent-dark" />
-      </div>
+      <BlogLayout>
+        <div className="flex min-h-[50vh] items-center justify-center py-12">
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-accent-light border-t-transparent dark:border-accent-dark" />
+        </div>
+      </BlogLayout>
     );
   }
 
   // Error state
   if (error || !blog) {
-    return <BlogErrorState error={error} />;
+    return (
+      <BlogLayout>
+        <BlogErrorState error={error} />
+      </BlogLayout>
+    );
   }
 
   // Blog post content
   return (
-    <>
+    <BlogLayout activeBlog={blog}>
       <article
-        className="container-custom py-8 sm:py-10 md:py-12"
+        className="h-full w-full"
         style={{ animation: "blogpost-fade-in 0.5s ease-out both" }}
       >
         <Link
@@ -96,15 +127,6 @@ const BlogPost = () => {
           <h1 className="gradient-text mt-2 text-2xl font-bold sm:text-3xl md:text-4xl">
             {blog.title}
           </h1>
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-light-textSecondary dark:text-dark-textSecondary">
-            <span className="font-medium">
-              {calculateReadTime(blog.content)} min read
-            </span>
-            <span>·</span>
-            <span>{formatDate(blog.createdAt)}</span>
-            <span>·</span>
-            <span className="rounded-full px-2 py-1 bg-gray-500 text-white">{blog.categoryName}</span>
-          </div>
         </header>
 
         {blog.thumbnailUrl && (
@@ -120,6 +142,36 @@ const BlogPost = () => {
         <div className="blog-content max-w-none text-light-textSecondary dark:text-dark-textSecondary [&_h1]:mb-4 [&_h1]:mt-8 [&_h1]:text-2xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-lg [&_p]:mb-3 [&_p]:leading-relaxed [&_ul]:mb-3 [&_ul]:list-inside [&_ul]:list-disc [&_ol]:mb-3 [&_ol]:list-inside [&_ol]:list-decimal [&_a]:text-accent-light [&_a]:underline [&_a]:hover:no-underline dark:[&_a]:text-accent-dark [&_pre]:overflow-x-auto [&_code]:rounded [&_code]:bg-light-bgSecondary [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-sm dark:[&_code]:bg-dark-bgSecondary [&_blockquote]:border-l-4 [&_blockquote]:border-light-border dark:[&_blockquote]:border-dark-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-4 [&_table]:w-full [&_table]:my-4 [&_table]:border-collapse [&_th]:border [&_th]:border-light-border dark:[&_th]:border-dark-border [&_th]:px-4 [&_th]:py-2 [&_th]:bg-light-bgSecondary dark:[&_th]:bg-dark-bgSecondary [&_th]:font-semibold [&_td]:border [&_td]:border-light-border dark:[&_td]:border-dark-border [&_td]:px-4 [&_td]:py-2 [&_hr]:my-8 [&_hr]:border-light-border dark:[&_hr]:border-dark-border">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.content || ""}</ReactMarkdown>
         </div>
+
+        {/* Share Section */}
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t lg:border-t-2 border-light-border dark:border-dark-border pt-8 pb-4">
+          <p className="font-semibold text-light-textPrimary dark:text-dark-textPrimary">
+            Share this article
+          </p>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={shareTwitter}
+              className="flex items-center justify-center rounded-full bg-[#1DA1F2]/10 p-2.5 text-[#1DA1F2] transition-colors hover:bg-[#1DA1F2]/20"
+              aria-label="Share on Twitter"
+            >
+              <Twitter className="h-5 w-5" />
+            </button>
+            <button
+              onClick={shareLinkedIn}
+              className="flex items-center justify-center rounded-full bg-[#0A66C2]/10 p-2.5 text-[#0A66C2] transition-colors hover:bg-[#0A66C2]/20"
+              aria-label="Share on LinkedIn"
+            >
+              <Linkedin className="h-5 w-5" />
+            </button>
+            <button
+              onClick={handleCopyLink}
+              className="flex items-center justify-center rounded-full bg-light-border dark:bg-dark-border p-2.5 text-light-textPrimary dark:text-dark-textPrimary transition-opacity hover:opacity-80"
+              aria-label="Copy Link"
+            >
+              {copied ? <CheckCircle2 className="h-5 w-5 text-green-500" /> : <LinkIcon className="h-5 w-5" />}
+            </button>
+          </div>
+        </div>
       </article>
 
       <style>{`
@@ -134,7 +186,7 @@ const BlogPost = () => {
           }
         }
       `}</style>
-    </>
+    </BlogLayout>
   );
 };
 

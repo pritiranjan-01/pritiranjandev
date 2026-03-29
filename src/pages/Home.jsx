@@ -33,7 +33,7 @@ const Home = () => {
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* Hero: name, picture, designation */}
-        <motion.section 
+        <motion.section
           className="mb-12 sm:mb-14 md:mb-16 lg:mb-20 grid gap-6 sm:gap-8 md:grid-cols-[auto,minmax(0,1fr)] md:items-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ const Home = () => {
                 href="mailto:pritiranjan.mohanty2003@gmail.com"
                 className="flex-1 sm:flex-none rounded-full bg-accent-light px-6 sm:px-7 py-2.5 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-accent-lightHover dark:bg-accent-dark dark:text-black dark:hover:bg-accent-darkHover inline-block text-center"
               >
-                Contact
+                Hire Me
               </a>
               <a
                 href={resumePDF}

@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useBlogContext } from "../context/BlogContext";
-import CategoryFilter from "../components/CategoryFilter";
 import BlogList from "../components/BlogList";
 import BlogErrorState from "../components/BlogErrorState";
 import Loading from "../components/Loading";
+import BlogLayout from "../components/BlogLayout";
 
 const Blogs = () => {
-  const { blogs: allBlogs, categories, loading, error } = useBlogContext();
-  const [activeCategory, setActiveCategory] = useState(null);
+  const { blogs: allBlogs, loading, error } = useBlogContext();
+  const [searchParams] = useSearchParams();
+  const activeCategory = searchParams.get("category");
 
   // Scroll to top on mount
   useEffect(() => {
@@ -34,24 +36,13 @@ const Blogs = () => {
     });
   }, [allBlogs, activeCategory]);
 
-  const handleCategoryChange = (categorySlug) => {
-    setActiveCategory(categorySlug);
-  };
-
   return (
-    <div className="container-custom py-8 sm:py-10 md:py-5">
+    <BlogLayout>
       {/* Header */}
       <div className="mb-8 flex items-center justify-between gap-4">
         <h1 className="gradient-text pb-5 text-3xl font-bold sm:text-4xl md:text-5xl">
-          Blogs
+          Explore
         </h1>
-
-        {/* Category Filter */}
-        <CategoryFilter
-          categories={categories}
-          activeCategory={activeCategory}
-          onCategoryChange={handleCategoryChange}
-        />
       </div>
 
       {/* Loading State */}
@@ -75,7 +66,7 @@ const Blogs = () => {
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
       `}</style>
-    </div>
+    </BlogLayout>
   );
 };
 
