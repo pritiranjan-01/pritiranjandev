@@ -21,7 +21,7 @@ const BlogPost = () => {
   };
 
   const shareTwitter = () => {
-    const text = encodeURIComponent(`${blog?.title}. Posted By @curious_ranjan\n\n`);
+    const text = encodeURIComponent(`${blog?.title}. Posted By @CuriousRanjan\n\n`);
     const url = encodeURIComponent(window.location.href);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank");
   };
