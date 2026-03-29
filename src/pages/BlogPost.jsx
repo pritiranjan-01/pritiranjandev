@@ -27,9 +27,17 @@ const BlogPost = () => {
   };
 
   const shareLinkedIn = () => {
-    // LinkedIn Mobile App actively strips text parameters, so we revert to the generic URL share approach
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const url = encodeURIComponent(window.location.href);
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+
+    if (isMobile) {
+      // LinkedIn Mobile App actively strips text parameters, so we revert to the generic URL share approach
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+    } else {
+      // Desktop browsers support pre-filling text via the feed API
+      const text = encodeURIComponent(`${blog?.title}\n\n${url}`);
+      window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${text}`, "_blank");
+    }
   };
 
   // Scroll to top on mount

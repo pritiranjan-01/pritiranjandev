@@ -31,13 +31,13 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
     <div className="sticky top-6 flex flex-col gap-4">
       {/* Author Section */}
       <div className="flex flex-col items-center text-center">
-        <div to="/blogs" className="group relative mb-4 block h-20 w-20 overflow-hidden rounded-full border-2 border-accent-light dark:border-accent-dark transition-transform hover:scale-105">
+        <Link to="/blogs" className="group relative mb-4 block h-20 w-20 overflow-hidden rounded-full border-2 border-accent-light dark:border-accent-dark transition-transform hover:scale-105 cursor-pointer">
           <img
             src={logo}
             alt="Pritiranjan Mohanty"
             className="h-full w-full object-contain "
           />
-        </div>
+        </Link>
         <h2 className="text-lg font-bold text-light-textPrimary dark:text-dark-textPrimary">
           Pritiranjan Mohanty
         </h2>
