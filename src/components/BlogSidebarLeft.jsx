@@ -45,7 +45,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
 
       {/* Post Metadata (Only when reading a blog) */}
       {!isBlogsList && activeBlog && (
-        <div className="flex px-10 gap-3 bg-light-bgSecondary/40 dark:bg-dark-bgSecondary/40 ">
+        <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 py-2 px-4 rounded-xl bg-light-bgSecondary/40 dark:bg-dark-bgSecondary/40">
           <div className="flex items-center gap-3 text-sm font-medium text-light-textSecondary dark:text-dark-textSecondary">
             <span>{formatDate(activeBlog.createdAt)}</span>
           </div>

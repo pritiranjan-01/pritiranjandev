@@ -27,9 +27,9 @@ const BlogPost = () => {
   };
 
   const shareLinkedIn = () => {
-    // Utilize LinkedIn's feed active share intent to pre-fill the user's post text box
-    const text = encodeURIComponent(`${blog?.title}\n\n${window.location.href}`);
-    window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${text}`, "_blank");
+    // LinkedIn Mobile App actively strips text parameters, so we revert to the generic URL share approach
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
   };
 
   // Scroll to top on mount
@@ -52,7 +52,7 @@ const BlogPost = () => {
 
         const res = await getBlogBySlug(slug);
         setBlog(res.data);
-        
+
         // Optimizing SEO: Dynamic browser tab title
         if (res.data?.title) {
           document.title = `${res.data.title} | Pritiranjan Mohanty`;
