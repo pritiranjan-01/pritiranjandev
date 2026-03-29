@@ -75,13 +75,13 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 Categories
               </h3>
             </div>
-            <ul className="flex flex-col gap-1">
+            <ul className="flex overflow-x-auto pb-3 gap-2 lg:gap-1 lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <li>
                 <Link
                   to="/blogs"
-                  className={`block rounded-lg px-4 py-2 transition-colors duration-200 ${!activeCategory && isBlogsList
-                    ? "bg-accent-light/10 text-accent-light dark:bg-accent-dark/10 dark:text-accent-dark font-medium"
-                    : "text-light-textSecondary hover:bg-light-bgSecondary hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-dark-textPrimary"
+                  className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm lg:text-base transition-colors duration-200 border lg:border-transparent ${!activeCategory && isBlogsList
+                    ? "bg-accent-light/10 text-accent-light border-accent-light/20 dark:bg-accent-dark/10 dark:text-accent-dark dark:border-accent-dark/20 font-medium"
+                    : "bg-light-bgSecondary/30 border-light-border lg:bg-transparent text-light-textSecondary hover:bg-light-bgSecondary hover:text-light-textPrimary dark:bg-dark-bgSecondary/30 dark:border-dark-border dark:lg:bg-transparent dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-dark-textPrimary"
                     }`}
                 >
                   All Categories
@@ -94,9 +94,9 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                   <li key={cat.id ?? categorySlug}>
                     <Link
                       to={`/blogs?category=${encodeURIComponent(categorySlug)}`}
-                      className={`block rounded-lg px-4 py-2 transition-colors duration-200 ${isActive
-                        ? "bg-accent-light/10 text-accent-light dark:bg-accent-dark/10 dark:text-accent-dark font-medium"
-                        : "text-light-textSecondary hover:bg-light-bgSecondary hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-dark-textPrimary"
+                      className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm lg:text-base transition-colors duration-200 border lg:border-transparent ${isActive
+                        ? "bg-accent-light/10 text-accent-light border-accent-light/20 dark:bg-accent-dark/10 dark:text-accent-dark dark:border-accent-dark/20 font-medium"
+                        : "bg-light-bgSecondary/30 border-light-border lg:bg-transparent text-light-textSecondary hover:bg-light-bgSecondary hover:text-light-textPrimary dark:bg-dark-bgSecondary/30 dark:border-dark-border dark:lg:bg-transparent dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-dark-textPrimary"
                         }`}
                     >
                       {cat.name}
