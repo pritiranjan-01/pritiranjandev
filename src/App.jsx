@@ -50,7 +50,7 @@ function AppLayout() {
 
     if (path === "/") title = "Home | Pritiranjan Mohanty";
     else if (path === "/projects") title = "Projects | Pritiranjan Mohanty";
-    else if (path === "/blogs") title = "Blogs | Pritiranjan Mohanty";
+    else if (path === "/blogs" || path === "/blogs/") title = "Blogs | Pritiranjan Mohanty";
     else if (path.startsWith("/blogs/")) title = "Blog | Pritiranjan Mohanty";
     else if (path === "/sitemap") title = "Sitemap | Pritiranjan Mohanty";
     else if (path.startsWith("/admin")) {

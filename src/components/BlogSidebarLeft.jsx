@@ -6,7 +6,8 @@ import logo from "../assets/util/logo.png"; // Use the actual profile picture
 const BlogSidebarLeft = ({ categories, activeBlog }) => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const isBlogsList = location.pathname === "/blogs";
+  // Handle both /blogs and /blogs/ cases
+  const isBlogsList = location.pathname === "/blogs" || location.pathname === "/blogs/";
 
   // If we are on the blog list, use the search param. Otherwise, no category is active.
   const activeCategory = isBlogsList ? searchParams.get("category") : null;
