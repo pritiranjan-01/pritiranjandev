@@ -27,14 +27,14 @@ const BlogCard = ({ blog, index = 0 }) => {
       }}
     >
       <div>
-        <h3 className="flex flex-wrap items-center gap-2 text-base sm:text-lg font-medium text-light-textPrimary dark:text-dark-textPrimary group-hover:text-accent-light dark:group-hover:text-accent-dark transition-colors">
-          {blog.title}
-          <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <h3 className="inline text-base sm:text-lg font-medium text-light-textPrimary dark:text-dark-textPrimary group-hover:text-accent-light dark:group-hover:text-accent-dark transition-colors">
+          <span className="align-middle">{blog.title}</span>
           {isNewPost(blog.createdAt) && (
-            <span className="rounded-full bg-accent-light px-2 py-0.5 text-xs font-semibold text-white dark:bg-accent-dark dark:text-black ">
+            <span className="ml-2 inline-flex items-center justify-center rounded-full bg-accent-light px-2 py-0.5 text-xs font-semibold text-white dark:bg-accent-dark dark:text-black align-middle">
               New
             </span>
           )}
+          <ExternalLink className="ml-2 inline-block h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity align-middle" />
         </h3>
       </div>
       <div className="mt-3 flex items-center justify-between">

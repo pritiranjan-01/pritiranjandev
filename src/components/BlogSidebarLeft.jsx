@@ -76,7 +76,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 Categories
               </h3>
             </div>
-            <ul className="flex overflow-x-auto pb-3 gap-2 lg:gap-1 lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <ul className="flex overflow-x-auto px-2 pb-3 gap-2 lg:gap-1 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <li>
                 <Link
                   to="/blogs"
