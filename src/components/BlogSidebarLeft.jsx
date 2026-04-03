@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
-import { FolderOpen, Calendar, Clock, Tag } from "lucide-react";
+import { FolderOpen, Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
 import logo from "../assets/util/logo.png"; // Use the actual profile picture
 
 const BlogSidebarLeft = ({ categories, activeBlog }) => {
@@ -30,6 +30,14 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
 
   return (
     <div className="sticky top-6 flex flex-col gap-4">
+      {/* Back Button */}
+      <Link
+        to="/"
+        className="group flex w-full max-w-fit items-center gap-2  bg-light-bgSecondary/50 text-md font-medium text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark"
+      >
+        <ArrowLeft className="h-6 w-8 transition-transform group-hover:-translate-x-1" />
+      </Link>
+
       {/* Author Section */}
       <div className="flex flex-col items-center text-center">
         <Link to="/blogs" className="group relative mb-4 block h-20 w-20 overflow-hidden rounded-full border-2 border-accent-light dark:border-accent-dark transition-transform hover:scale-105 cursor-pointer">
