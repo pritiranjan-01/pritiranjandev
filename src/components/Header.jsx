@@ -3,10 +3,39 @@ import { Link, NavLink } from "react-router-dom";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { utils } from "../assets/util/util.js";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinkClasses =
   "text-xs sm:text-sm md:text-base font-medium tracking-wide px-2 sm:px-3 py-1 rounded-full transition-colors relative";
+
+const menuVariants = {
+  closed: {
+    height: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      ease: "easeInOut",
+      when: "afterChildren",
+      staggerChildren: 0.05,
+      staggerDirection: -1
+    }
+  },
+  open: {
+    height: "auto",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      ease: [0.16, 1, 0.3, 1],
+      when: "beforeChildren",
+      staggerChildren: 0.08
+    }
+  }
+};
+
+const itemVariants = {
+  closed: { y: -15, opacity: 0, filter: "blur(4px)" },
+  open: { y: 0, opacity: 1, filter: "blur(0px)", transition: { duration: 0.3 } }
+};
 
 const Header = ({ isDarkMode, toggleTheme }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -157,57 +186,65 @@ const Header = ({ isDarkMode, toggleTheme }) => {
         </div>
 
         {/* Mobile Navigation Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-light-border bg-light-bgPrimary dark:border-dark-border dark:bg-black/95 backdrop-blur-sm">
-            <nav className="container-custom py-4">
-              <ul className="flex flex-col gap-3">
-                <li>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-lg transition-colors ${isActive
-                        ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                        : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
-                      }`
-                    }
-                    end
-                    onClick={closeMobileMenu}
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/projects"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-lg transition-colors ${isActive
-                        ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                        : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
-                      }`
-                    }
-                    onClick={closeMobileMenu}
-                  >
-                    Projects
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/blogs"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-lg transition-colors ${isActive
-                        ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                        : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
-                      }`
-                    }
-                    onClick={closeMobileMenu}
-                  >
-                    Blogs
-                  </NavLink>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        )}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="md:hidden border-t border-light-border bg-light-bgPrimary dark:border-dark-border dark:bg-black/95 backdrop-blur-sm overflow-hidden"
+            >
+              <nav className="container-custom py-4">
+                <motion.ul className="flex flex-col gap-3">
+                  <motion.li variants={itemVariants}>
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded-lg transition-colors ${isActive
+                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                        }`
+                      }
+                      end
+                      onClick={closeMobileMenu}
+                    >
+                      Home
+                    </NavLink>
+                  </motion.li>
+                  <motion.li variants={itemVariants}>
+                    <NavLink
+                      to="/projects"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded-lg transition-colors ${isActive
+                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                        }`
+                      }
+                      onClick={closeMobileMenu}
+                    >
+                      Projects
+                    </NavLink>
+                  </motion.li>
+                  <motion.li variants={itemVariants}>
+                    <NavLink
+                      to="/blogs"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded-lg transition-colors ${isActive
+                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                        }`
+                      }
+                      onClick={closeMobileMenu}
+                    >
+                      Blogs
+                    </NavLink>
+                  </motion.li>
+                </motion.ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
     </>
   );
