@@ -1,26 +1,40 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import VideoModal from "../components/VideoModal";
 import ProjectCard from "../components/ProjectCard";
 
 const Projects = () => {
+  const navigate = useNavigate();
   const { sampleProjects } = useAppContext();
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Use requestAnimationFrame and a small timeout to ensure DOM is fully rendered
     requestAnimationFrame(() => {
       setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       }, 0);
     });
   }, []);
 
+
+
   return (
     <div className="container-custom py-6 sm:py-8 md:py-5">
-      <header className="mb-6 sm:mb-8 md:mb-10">
-        <h1 className="gradient-text mb-2 sm:mb-3 pb-2 text-3xl sm:text-4xl md:text-5xl">
+      <header className="relative mb-6 flex items-center justify-center sm:mb-8 md:mb-10 md:justify-start">
+        {/* Back Button */}
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="group absolute left-0 flex items-center justify-center rounded-lg bg-light-bgSecondary/50 p-2 text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark cursor-pointer md:hidden"
+          aria-label="Go back"
+        >
+          <ArrowLeft className="h-6 w-6 transition-transform group-hover:-translate-x-1" />
+        </button>
+
+        <h1 className="gradient-text pb-2 text-3xl font-bold text-center sm:text-4xl md:text-left md:text-5xl">
           Projects
         </h1>
       </header>

@@ -1,11 +1,29 @@
 import React from "react";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { FolderOpen, Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
 import logo from "../assets/util/logo.png"; // Use the actual profile picture
+
+const listVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+};
 
 const BlogSidebarLeft = ({ categories, activeBlog }) => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
+  const navigate = useNavigate();
   // Handle both /blogs and /blogs/ cases
   const isBlogsList = location.pathname === "/blogs" || location.pathname === "/blogs/";
 
@@ -31,12 +49,15 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
   return (
     <div className="sticky top-6 flex flex-col gap-4">
       {/* Back Button */}
-      <Link
-        to="/"
-        className="group flex w-full max-w-fit items-center gap-2  bg-light-bgSecondary/50 text-md font-medium text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark"
-      >
-        <ArrowLeft className="h-6 w-8 transition-transform group-hover:-translate-x-1" />
-      </Link>
+      {isBlogsList && (
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="group flex w-full max-w-fit items-center gap-2  bg-light-bgSecondary/50 text-md font-medium text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark cursor-pointer rounded-lg px-2 py-1"
+        >
+          <ArrowLeft className="h-6 w-8 transition-transform group-hover:-translate-x-1" />
+        </button>
+      )}
 
       {/* Author Section */}
       <div className="flex flex-col items-center text-center">
@@ -84,8 +105,13 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 Categories
               </h3>
             </div>
-            <ul className="flex overflow-x-auto px-2 pb-3 gap-2 lg:gap-1 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <li>
+            <motion.ul 
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex overflow-x-auto px-2 pb-3 gap-2 lg:gap-1 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              <motion.li variants={itemVariants}>
                 <Link
                   to="/blogs"
                   className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm lg:text-base transition-colors duration-200 border lg:border-transparent ${!activeCategory && isBlogsList
@@ -95,12 +121,12 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 >
                   All Categories
                 </Link>
-              </li>
+              </motion.li>
               {categories.map((cat) => {
                 const categorySlug = cat.slug ?? cat.name;
                 const isActive = activeCategory === categorySlug && isBlogsList;
                 return (
-                  <li key={cat.id ?? categorySlug}>
+                  <motion.li key={cat.id ?? categorySlug} variants={itemVariants}>
                     <Link
                       to={`/blogs?category=${encodeURIComponent(categorySlug)}`}
                       className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm lg:text-base transition-colors duration-200 border lg:border-transparent ${isActive
@@ -110,10 +136,10 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                     >
                       {cat.name}
                     </Link>
-                  </li>
+                  </motion.li>
                 );
               })}
-            </ul>
+            </motion.ul>
           </div>
         </>
       )}

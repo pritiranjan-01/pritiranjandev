@@ -121,7 +121,7 @@ const skillCategories = [
   },
   {
     title: "Clouds",
-    skills: ["AWS (IAM, EC2, S3, EBS, RDS)", "Render", "Vercel"],
+    skills: ["AWS (IAM, EC2, S3, EB, RDS)", "Render", "Vercel"],
   },
 ];
 

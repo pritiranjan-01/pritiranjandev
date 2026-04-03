@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft, Linkedin, Twitter, Link as LinkIcon, CheckCircle2, Calendar, Clock } from "lucide-react";
@@ -9,10 +9,20 @@ import BlogLayout from "../components/BlogLayout";
 
 const BlogPost = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+
+  const handleBackToBlogs = (e) => {
+    e.preventDefault();
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate("/blogs");
+    }
+  };
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -123,13 +133,13 @@ const BlogPost = () => {
         className="h-full w-full"
         style={{ animation: "blogpost-fade-in 0.5s ease-out both" }}
       >
-        <Link
-          to="/blogs"
-          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-light-textSecondary transition-colors hover:text-accent-light dark:text-dark-textSecondary dark:hover:text-accent-dark"
+        <button
+          onClick={handleBackToBlogs}
+          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-light-textSecondary transition-colors hover:text-accent-light dark:text-dark-textSecondary dark:hover:text-accent-dark cursor-pointer"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to blogs
-        </Link>
+        </button>
 
         <header className="mb-6 sm:mb-8">
           <h1 className="gradient-text mt-2 text-2xl font-bold sm:text-3xl md:text-4xl">

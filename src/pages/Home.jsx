@@ -15,14 +15,15 @@ const Home = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Scroll to top on mount
   useEffect(() => {
     requestAnimationFrame(() => {
       setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       }, 0);
     });
   }, []);
+
+
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { utils } from "../assets/util/util.js";
@@ -40,8 +40,10 @@ const itemVariants = {
 const Header = ({ isDarkMode, toggleTheme }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+
+
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
   const closeMobileMenu = () => {
@@ -58,8 +60,21 @@ const Header = ({ isDarkMode, toggleTheme }) => {
         Skip to main content
       </a>
 
+      {/* Mobile Navigation Blur Backdrop */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-light-bgPrimary/40 dark:bg-black/40 backdrop-blur-sm md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       <motion.header
-        className="sticky top-0 z-50 border-b border-light-border bg-light-bgPrimary/90 backdrop-blur-md dark:border-dark-border dark:bg-black/90"
+        className="sticky top-0 z-[100] border-b border-light-border bg-light-bgPrimary/90 backdrop-blur-md dark:border-dark-border dark:bg-black/90"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}

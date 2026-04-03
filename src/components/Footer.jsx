@@ -37,7 +37,7 @@ const Footer = () => {
           {/* Middle: Contact + Visitors */}
           <div className="flex flex-col items-center gap-2 text-xs sm:text-sm">
             <p className="text-center">
-              Contact:{" "}
+              Email:{" "}
               <span className="font-medium text-light-textPrimary dark:text-dark-textPrimary">
                 pritiranjan.mohanty2003@gmail.com
               </span>
