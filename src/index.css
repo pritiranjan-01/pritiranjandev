@@ -40,7 +40,7 @@
   }
 
   p,
-  span,
+  span:not([class*="hljs"]),
   a,
   li,
   div {
@@ -48,7 +48,7 @@
   }
 
   body.dark p,
-  body.dark span,
+  body.dark span:not([class*="hljs"]),
   body.dark a,
   body.dark li,
   body.dark div {
@@ -78,4 +78,259 @@
   body.dark .gradient-text {
     @apply from-white to-white;
   }
+}
+
+/* =============================================
+   MARKDOWN BODY — CODE BLOCKS
+   Uses GitHub code theme colors for consistency
+   with the dynamically loaded hljs CSS theme.
+============================================= */
+
+/* Code block wrapper (React component injects this) */
+.code-block-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  /* Same dark card border in both modes to match the dark code bg */
+  border: 1px solid #3a3f4b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+/* No separate .dark .code-block-wrapper rule needed — same card style both modes */
+
+/* Pre element inside code blocks — Atom One Dark bg for BOTH light and dark modes */
+.code-block-wrapper pre,
+.prose pre {
+  margin: 0;
+  padding: 20px 22px;
+  overflow-x: auto;
+  border-radius: 0;
+  background: #282c34 !important; /* Atom One Dark — unified for all modes */
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* No separate dark-mode background override needed — same bg in both modes */
+
+/* Scrollbar for code blocks */
+.prose pre::-webkit-scrollbar,
+.code-block-wrapper pre::-webkit-scrollbar {
+  height: 6px;
+}
+.prose pre::-webkit-scrollbar-track,
+.code-block-wrapper pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.prose pre::-webkit-scrollbar-thumb,
+.code-block-wrapper pre::-webkit-scrollbar-thumb {
+  background: #d0d7de;
+  border-radius: 3px;
+}
+.dark .prose pre::-webkit-scrollbar-thumb,
+.dark .code-block-wrapper pre::-webkit-scrollbar-thumb {
+  background: #30363d;
+}
+
+/* =============================================
+   HIGHLIGHT.JS — BASE RESET
+   Only reset layout/background; let the token
+   color rules (below) control all colors.
+============================================= */
+
+.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Code element inside pre: reset everything except color
+   (github.css sets .hljs base color; we keep that intact) */
+.prose pre code,
+.prose pre code.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-weight: normal !important;
+  /* NO color override — github.css sets the correct base code color */
+}
+
+/* =============================================
+   INLINE CODE
+   Subtle pill-style, clearly distinct from
+   surrounding text in both modes.
+============================================= */
+.prose :not(pre) > code,
+.inline-code {
+  font-family: "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+  font-size: 0.84em;
+  font-weight: 500;
+  padding: 0.15em 0.45em;
+  border-radius: 5px;
+  /* Light mode: soft grey pill */
+  background: #eef0f3;
+  color: #c7254e;
+  border: 1px solid #dde0e4;
+}
+
+.dark .prose :not(pre) > code,
+.dark .inline-code {
+  /* Dark mode: dimmed surface with warm tint */
+  background: #1e2330;
+  color: #f97583;
+  border-color: #2d3244;
+}
+
+/* =============================================
+   CODE FONT (block + inline)
+============================================= */
+.prose code,
+.prose pre {
+  font-family: "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+}
+
+/* =============================================
+   TABLES
+   Clean, rounded, border-separated rows.
+============================================= */
+
+/* Override prose default table styles */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.prose thead {
+  background: #f3f4f6;
+}
+.dark .prose thead {
+  background: #161b22;
+}
+
+.prose th {
+  padding: 10px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #111827;
+  border-bottom: 2px solid #e1e4e8;
+}
+.dark .prose th {
+  color: #e6edf3;
+  border-bottom-color: #30363d;
+}
+
+.prose td {
+  padding: 9px 16px;
+  color: #374151;
+  border-bottom: 1px solid #e1e4e8;
+}
+.dark .prose td {
+  color: #c9d1d9;
+  border-bottom-color: #21262d;
+}
+
+/* Zebra-stripe rows in light mode */
+.prose tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+.dark .prose tbody tr:nth-child(even) {
+  background: #0d1117;
+}
+
+/* =============================================
+   PROSE GENERAL OVERRIDES
+   Ensure correct colors in both modes.
+============================================= */
+
+/* Headings inside prose */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #111827;
+}
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
+  color: #f0f6fc;
+}
+
+/* Body text — spans are intentionally omitted: they inherit
+   color from their parent <p> or <li>, so no explicit rule needed
+   and omitting .prose span avoids overriding hljs token colors. */
+.prose p,
+.prose li {
+  color: #374151;
+  line-height: 1.8;
+}
+.dark .prose p,
+.dark .prose li {
+  color: #c9d1d9;
+}
+
+/* Bold text */
+.prose strong {
+  color: #111827;
+  font-weight: 600;
+}
+.dark .prose strong {
+  color: #e6edf3;
+}
+
+/* Links */
+.prose a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.dark .prose a {
+  color: #58a6ff;
+}
+.prose a:hover {
+  color: #1d4ed8;
+}
+.dark .prose a:hover {
+  color: #79c0ff;
+}
+
+/* Blockquote — left accent card */
+.prose blockquote {
+  border-left: 4px solid #60a5fa;
+  background: #eff6ff;
+  padding: 12px 20px;
+  margin: 24px 0;
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+  color: #374151;
+}
+.dark .prose blockquote {
+  border-left-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  color: #c9d1d9;
+}
+
+/* Horizontal rule */
+.prose hr {
+  border-color: #e5e7eb;
+  margin: 32px 0;
+}
+.dark .prose hr {
+  border-color: #21262d;
+}
+
+/* Images */
+.prose img {
+  border-radius: 10px;
+  border: 1px solid #e1e4e8;
+}
+.dark .prose img {
+  border-color: #30363d;
 }
