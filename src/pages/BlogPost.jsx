@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 /* Single unified code theme: Atom One Dark.
    Code blocks always use a dark background in BOTH light and dark mode —
    same vivid token colors everywhere, consistent across the whole portfolio. */
@@ -186,7 +187,24 @@ const BlogPost = () => {
         <div className="markdown-body prose dark:prose-invert max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[[rehypeHighlight, { detect: true, ignoreMissing: true }], rehypeRaw]}
+            rehypePlugins={[
+              [rehypeHighlight, { detect: true, ignoreMissing: true }],
+              rehypeRaw,
+              // Sanitize AFTER rehype-raw to strip <script>, onerror=, javascript:
+              // links and other XSS vectors. We merge defaultSchema to also allow
+              // className attributes — without this, hljs-* token classes get stripped
+              // and all syntax highlighting breaks.
+              [rehypeSanitize, {
+                ...defaultSchema,
+                attributes: {
+                  ...defaultSchema.attributes,
+                  "*": [
+                    ...(defaultSchema.attributes?.["*"] ?? []),
+                    "className",
+                  ],
+                },
+              }],
+            ]}
             components={{
               // Headings
               h1: ({ node, ...props }) => (
