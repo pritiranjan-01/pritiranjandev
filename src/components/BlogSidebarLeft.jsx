@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { FolderOpen, Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
-import logo from "../assets/util/logo.png"; // Use the actual profile picture
+import { FolderOpen, ArrowLeft } from "lucide-react";
+import logo from "../assets/util/logo.png";
 
 const listVariants = {
   hidden: { opacity: 0 },
@@ -47,28 +47,28 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
   };
 
   return (
-    <div className="sticky top-6 flex flex-col gap-4">
+    <div className="sticky top-6 flex flex-col gap-6">
       {/* Back Button */}
       {isBlogsList && (
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="group flex w-full max-w-fit items-center gap-2  bg-light-bgSecondary/50 text-md font-medium text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark cursor-pointer rounded-lg px-2 py-1"
+          className="hidden group w-full max-w-fit items-center gap-2 bg-light-bgSecondary/50 text-md font-medium text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark cursor-pointer rounded-lg px-2 py-1"
         >
           <ArrowLeft className="h-6 w-8 transition-transform group-hover:-translate-x-1" />
         </button>
       )}
 
       {/* Author Section */}
-      <div className="flex flex-col items-center text-center">
+      <div className="flex flex-col items-center text-center mt-2">
         <Link to="/blogs" className="group relative mb-4 block h-20 w-20 overflow-hidden rounded-full border-2 border-accent-light dark:border-accent-dark transition-transform hover:scale-105 cursor-pointer">
           <img
             src={logo}
             alt="Pritiranjan Mohanty"
-            className="h-full w-full object-contain "
+            className="h-full w-full object-contain"
           />
         </Link>
-        <h2 className="text-lg font-bold text-light-textPrimary dark:text-dark-textPrimary">
+        <h2 className="text-sm font-bold text-light-textPrimary dark:text-dark-textPrimary">
           Pritiranjan Mohanty
         </h2>
       </div>
@@ -95,13 +95,11 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
 
       {isBlogsList && (
         <>
-          <hr className="border-light-border dark:border-dark-border" />
-
           {/* Categories Section */}
-          <div>
-            <div className="mb-4 flex items-center gap-2 px-2">
-              <FolderOpen className="h-5 w-5 text-accent-light dark:text-accent-dark" />
-              <h3 className="text-lg font-semibold text-light-textPrimary dark:text-dark-textPrimary">
+          <div className="mt-4">
+            <div className="mb-4 flex items-center gap-2 px-2 text-light-textSecondary dark:text-dark-textSecondary opacity-70">
+              <FolderOpen className="h-4 w-4" strokeWidth={2} />
+              <h3 className="text-xs font-bold tracking-wider uppercase">
                 Categories
               </h3>
             </div>
@@ -114,9 +112,9 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
               <motion.li variants={itemVariants}>
                 <Link
                   to="/blogs"
-                  className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm lg:text-base transition-colors duration-200 border lg:border-transparent ${!activeCategory && isBlogsList
-                    ? "bg-accent-light/10 text-accent-light border-accent-light/20 dark:bg-accent-dark/10 dark:text-accent-dark dark:border-accent-dark/20 font-medium"
-                    : "bg-light-bgSecondary/30 border-light-border lg:bg-transparent text-light-textSecondary hover:bg-light-bgSecondary hover:text-light-textPrimary dark:bg-dark-bgSecondary/30 dark:border-dark-border dark:lg:bg-transparent dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-dark-textPrimary"
+                  className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${!activeCategory && isBlogsList
+                    ? "bg-light-bgSecondary text-light-textPrimary dark:bg-white dark:text-black font-semibold border-light-bgSecondary dark:border-white"
+                    : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
                     }`}
                 >
                   All Categories
@@ -129,9 +127,9 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                   <motion.li key={cat.id ?? categorySlug} variants={itemVariants}>
                     <Link
                       to={`/blogs?category=${encodeURIComponent(categorySlug)}`}
-                      className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm lg:text-base transition-colors duration-200 border lg:border-transparent ${isActive
-                        ? "bg-accent-light/10 text-accent-light border-accent-light/20 dark:bg-accent-dark/10 dark:text-accent-dark dark:border-accent-dark/20 font-medium"
-                        : "bg-light-bgSecondary/30 border-light-border lg:bg-transparent text-light-textSecondary hover:bg-light-bgSecondary hover:text-light-textPrimary dark:bg-dark-bgSecondary/30 dark:border-dark-border dark:lg:bg-transparent dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-dark-textPrimary"
+                      className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${isActive
+                        ? "bg-light-bgSecondary text-light-textPrimary dark:bg-white dark:text-black font-semibold border-light-bgSecondary dark:border-white"
+                        : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
                         }`}
                     >
                       {cat.name}

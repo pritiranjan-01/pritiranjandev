@@ -39,8 +39,8 @@ const Blogs = () => {
   return (
     <BlogLayout>
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between gap-4">
-        <h1 className="gradient-text pb-5 text-3xl font-bold sm:text-4xl md:text-5xl">
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <h1 className="text-4xl font-extrabold tracking-tight text-light-textPrimary dark:text-dark-textPrimary sm:text-5xl">
           Explore
         </h1>
       </div>
@@ -49,7 +49,9 @@ const Blogs = () => {
       {loading && <Loading />}
 
       {/* Blog List */}
-      {!loading && filteredBlogs.length > 0 && <BlogList blogs={filteredBlogs} />}
+      {!loading && filteredBlogs.length > 0 && (
+        <BlogList blogs={filteredBlogs} />
+      )}
 
       {/* Empty State */}
       {!loading && filteredBlogs.length === 0 && (

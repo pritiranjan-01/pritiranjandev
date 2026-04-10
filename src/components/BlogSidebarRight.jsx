@@ -16,19 +16,13 @@ const BlogSidebarRight = ({ blogs }) => {
     return new Date(dateStr).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
-      year: "numeric"
+      year: "numeric",
     });
   };
 
   return (
-    <div className="sticky top-6">
-      <div className="mb-4 flex items-center gap-2">
-        <Clock className="h-5 w-5 text-accent-light dark:text-accent-dark" />
-        <h3 className="text-lg font-semibold text-light-textPrimary dark:text-dark-textPrimary">
-          Recent Posts
-        </h3>
-      </div>
-      <div className="flex flex-col gap-4">
+    <div className="sticky top-0 flex flex-col  ">
+      <div className="flex flex-col gap-6 mt-6">
         {recentBlogs.length === 0 ? (
           <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">
             No recent posts.
@@ -38,9 +32,9 @@ const BlogSidebarRight = ({ blogs }) => {
             <Link
               key={blog.id ?? blog.slug}
               to={`/blogs/${blog.slug}`}
-              className="group block rounded-lg border border-transparent hover:border-light-border dark:hover:border-dark-border bg-light-bgSecondary/30 p-4 transition-colors dark:bg-dark-bgSecondary/30 hover:bg-light-bgSecondary hover:dark:bg-dark-bgSecondary"
+              className="group block transition-colors"
             >
-              <h4 className="mb-1 text-sm font-medium text-light-textPrimary line-clamp-2 group-hover:text-accent-light dark:text-dark-textPrimary dark:group-hover:text-accent-dark transition-colors">
+              <h4 className="mb-2 text-sm font-bold text-light-textPrimary line-clamp-2 hover:text-accent-light dark:text-dark-textPrimary dark:hover:text-accent-dark transition-colors">
                 {blog.title}
               </h4>
               <p className="text-xs text-light-textSecondary dark:text-dark-textSecondary">
