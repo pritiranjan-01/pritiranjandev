@@ -113,7 +113,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 <Link
                   to="/blogs"
                   className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${!activeCategory && isBlogsList
-                    ? "bg-light-bgSecondary text-light-textPrimary dark:bg-white dark:text-black font-semibold border-light-bgSecondary dark:border-white"
+                    ? "bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white"
                     : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
                     }`}
                 >
@@ -128,7 +128,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                     <Link
                       to={`/blogs?category=${encodeURIComponent(categorySlug)}`}
                       className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${isActive
-                        ? "bg-light-bgSecondary text-light-textPrimary dark:bg-white dark:text-black font-semibold border-light-bgSecondary dark:border-white"
+                        ? "bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white"
                         : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
                         }`}
                     >
