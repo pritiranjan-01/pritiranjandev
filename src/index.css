@@ -40,18 +40,12 @@
   }
 
   p,
-  span:not([class*="hljs"]),
-  a,
-  li,
-  div {
+  li {
     @apply text-light-textPrimary;
   }
 
   body.dark p,
-  body.dark span:not([class*="hljs"]),
-  body.dark a,
-  body.dark li,
-  body.dark div {
+  body.dark li {
     @apply text-white;
   }
 }
