@@ -160,13 +160,13 @@ const BlogPost = () => {
         className="h-full w-full"
         style={{ animation: "blogpost-fade-in 0.5s ease-out both" }}
       >
-        <button
+        {/* <button
           onClick={handleBackToBlogs}
           className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-light-textSecondary transition-colors hover:text-accent-light dark:text-dark-textSecondary dark:hover:text-accent-dark cursor-pointer"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to blogs
-        </button>
+        </button> */}
 
         <header className="mb-6 sm:mb-8">
           <h1 className="gradient-text mt-2 text-2xl font-bold sm:text-3xl md:text-4xl">
@@ -194,47 +194,73 @@ const BlogPost = () => {
               // links and other XSS vectors. We merge defaultSchema to also allow
               // className attributes — without this, hljs-* token classes get stripped
               // and all syntax highlighting breaks.
-              [rehypeSanitize, {
-                ...defaultSchema,
-                attributes: {
-                  ...defaultSchema.attributes,
-                  "*": [
-                    ...(defaultSchema.attributes?.["*"] ?? []),
-                    "className",
-                  ],
+              [
+                rehypeSanitize,
+                {
+                  ...defaultSchema,
+                  attributes: {
+                    ...defaultSchema.attributes,
+                    "*": [
+                      ...(defaultSchema.attributes?.["*"] ?? []),
+                      "className",
+                    ],
+                  },
                 },
-              }],
+              ],
             ]}
             components={{
               // Headings
               h1: ({ node, ...props }) => (
-                <h1 className="text-3xl font-bold mt-8 mb-4 text-light-textPrimary dark:text-dark-textPrimary border-b border-light-border dark:border-dark-border pb-2" {...props} />
+                <h1
+                  className="text-3xl font-bold mt-8 mb-4 text-light-textPrimary dark:text-dark-textPrimary border-b border-light-border dark:border-dark-border pb-2"
+                  {...props}
+                />
               ),
               h2: ({ node, ...props }) => (
-                <h2 className="text-2xl font-bold mt-8 mb-3 text-light-textPrimary dark:text-dark-textPrimary border-b border-light-border dark:border-dark-border pb-2" {...props} />
+                <h2
+                  className="text-2xl font-bold mt-8 mb-3 text-light-textPrimary dark:text-dark-textPrimary border-b border-light-border dark:border-dark-border pb-2"
+                  {...props}
+                />
               ),
               h3: ({ node, ...props }) => (
-                <h3 className="text-xl font-semibold mt-6 mb-3 text-light-textPrimary dark:text-dark-textPrimary" {...props} />
+                <h3
+                  className="text-xl font-semibold mt-6 mb-3 text-light-textPrimary dark:text-dark-textPrimary"
+                  {...props}
+                />
               ),
               h4: ({ node, ...props }) => (
-                <h4 className="text-lg font-semibold mt-5 mb-2 text-light-textPrimary dark:text-dark-textPrimary" {...props} />
+                <h4
+                  className="text-lg font-semibold mt-5 mb-2 text-light-textPrimary dark:text-dark-textPrimary"
+                  {...props}
+                />
               ),
               h5: ({ node, ...props }) => (
-                <h5 className="text-base font-semibold mt-4 mb-2 text-light-textPrimary dark:text-dark-textPrimary" {...props} />
+                <h5
+                  className="text-base font-semibold mt-4 mb-2 text-light-textPrimary dark:text-dark-textPrimary"
+                  {...props}
+                />
               ),
               h6: ({ node, ...props }) => (
-                <h6 className="text-sm font-semibold mt-4 mb-2 text-light-textSecondary dark:text-dark-textSecondary uppercase tracking-wide" {...props} />
+                <h6
+                  className="text-sm font-semibold mt-4 mb-2 text-light-textSecondary dark:text-dark-textSecondary uppercase tracking-wide"
+                  {...props}
+                />
               ),
               // Paragraph
               p: ({ node, ...props }) => (
-                <p className="my-4 leading-7 text-light-textSecondary dark:text-dark-textSecondary" {...props} />
+                <p
+                  className="my-4 leading-7 text-light-textSecondary dark:text-dark-textSecondary"
+                  {...props}
+                />
               ),
               // Links
               a: ({ node, href, children, ...props }) => (
                 <a
                   href={href}
                   target={href?.startsWith("http") ? "_blank" : undefined}
-                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                  rel={
+                    href?.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
                   className="text-blue-600 dark:text-blue-400 underline underline-offset-2 decoration-blue-300 dark:decoration-blue-700 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
                   {...props}
                 >
@@ -250,23 +276,38 @@ const BlogPost = () => {
               ),
               // Horizontal rule
               hr: ({ node, ...props }) => (
-                <hr className="my-8 border-light-border dark:border-dark-border" {...props} />
+                <hr
+                  className="my-8 border-light-border dark:border-dark-border"
+                  {...props}
+                />
               ),
               // Strong / Bold
               strong: ({ node, ...props }) => (
-                <strong className="font-semibold text-light-textPrimary dark:text-dark-textPrimary" {...props} />
+                <strong
+                  className="font-semibold text-light-textPrimary dark:text-dark-textPrimary"
+                  {...props}
+                />
               ),
               // Emphasis / Italic
               em: ({ node, ...props }) => (
-                <em className="italic text-light-textSecondary dark:text-dark-textSecondary" {...props} />
+                <em
+                  className="italic text-light-textSecondary dark:text-dark-textSecondary"
+                  {...props}
+                />
               ),
               // Unordered list
               ul: ({ node, ...props }) => (
-                <ul className="my-4 ml-6 list-disc space-y-1.5 text-light-textSecondary dark:text-dark-textSecondary" {...props} />
+                <ul
+                  className="my-4 ml-6 list-disc space-y-1.5 text-light-textSecondary dark:text-dark-textSecondary"
+                  {...props}
+                />
               ),
               // Ordered list
               ol: ({ node, ...props }) => (
-                <ol className="my-4 ml-6 list-decimal space-y-1.5 text-light-textSecondary dark:text-dark-textSecondary" {...props} />
+                <ol
+                  className="my-4 ml-6 list-decimal space-y-1.5 text-light-textSecondary dark:text-dark-textSecondary"
+                  {...props}
+                />
               ),
               // List item
               li: ({ node, ...props }) => (
@@ -292,30 +333,42 @@ const BlogPost = () => {
               // Table
               table: ({ node, ...props }) => (
                 <div className="my-6 overflow-x-auto rounded-xl border border-light-border dark:border-dark-border">
-                  <table className="min-w-full divide-y divide-light-border dark:divide-dark-border text-sm" {...props} />
+                  <table
+                    className="min-w-full divide-y divide-light-border dark:divide-dark-border text-sm"
+                    {...props}
+                  />
                 </div>
               ),
               thead: ({ node, ...props }) => (
-                <thead className="bg-light-bgSecondary dark:bg-dark-bgSecondary" {...props} />
+                <thead
+                  className="bg-light-bgSecondary dark:bg-dark-bgSecondary"
+                  {...props}
+                />
               ),
               tbody: ({ node, ...props }) => (
-                <tbody className="divide-y divide-light-border dark:divide-dark-border" {...props} />
+                <tbody
+                  className="divide-y divide-light-border dark:divide-dark-border"
+                  {...props}
+                />
               ),
               th: ({ node, ...props }) => (
-                <th className="px-4 py-3 text-left font-semibold text-light-textPrimary dark:text-dark-textPrimary" {...props} />
+                <th
+                  className="px-4 py-3 text-left font-semibold text-light-textPrimary dark:text-dark-textPrimary"
+                  {...props}
+                />
               ),
               td: ({ node, ...props }) => (
-                <td className="px-4 py-3 text-light-textSecondary dark:text-dark-textSecondary" {...props} />
+                <td
+                  className="px-4 py-3 text-light-textSecondary dark:text-dark-textSecondary"
+                  {...props}
+                />
               ),
               // Inline code
               code: ({ node, inline, className, children, ...props }) => {
                 const match = /language-(\w+)/.exec(className || "");
                 if (inline) {
                   return (
-                    <code
-                      className="inline-code"
-                      {...props}
-                    >
+                    <code className="inline-code" {...props}>
                       {children}
                     </code>
                   );
