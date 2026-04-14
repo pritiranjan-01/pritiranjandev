@@ -129,35 +129,54 @@ const skillCategories = [
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      return savedTheme === "dark";
-    }
-    // Default to light mode
-    return false;
+  // theme: 'light' | 'dim' | 'dark'
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "dim" || saved === "light") return saved;
+    return "light";
   });
 
-  useEffect(() => {
-    // Update document class and localStorage when theme changes
-    if (isDarkMode) {
-      document.body.classList.add("dark");
-      document.documentElement.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+  // Backward-compat: isDarkMode is true for both dim and dark
+  const isDarkMode = theme !== "light";
 
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
+  useEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
+
+    // Clear all theme classes first
+    body.classList.remove("dark", "dim");
+    html.classList.remove("dark", "dim");
+
+    if (theme === "dark") {
+      body.classList.add("dark");
+      html.classList.add("dark");
+    } else if (theme === "dim") {
+      // dim also needs dark so Tailwind's dark: prefix classes activate
+      body.classList.add("dark", "dim");
+      html.classList.add("dark", "dim");
+    }
+
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // Cycles: light → dim → dark → light
+  const cycleTheme = () => {
+    setTheme((prev) => {
+      if (prev === "light") return "dim";
+      if (prev === "dim")   return "dark";
+      return "light";
+    });
   };
 
+  // Keep toggleTheme for any components still importing it (will toggle dark only)
+  const toggleTheme = cycleTheme;
+
   const value = {
+    theme,
+    setTheme,
     isDarkMode,
-    setIsDarkMode,
     toggleTheme,
+    cycleTheme,
     sampleProjects,
     skillCategories,
   };

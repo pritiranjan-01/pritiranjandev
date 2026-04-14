@@ -1,5 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap");
 
+/* =============================================
+   THEME CSS VARIABLES
+   dark = pure black (existing behaviour)
+   dim  = Twitter / X "Lights Out Dim" palette
+============================================= */
+:root {
+  /* Pure black dark theme (default dark) */
+  --dark-bg-primary:    #000000;
+  --dark-bg-secondary:  #0a0a0a;
+  --dark-text-primary:  #ffffff;
+  --dark-text-secondary:#ffffff;
+  --dark-text-tertiary: #ffffff;
+  --dark-border:        #1a1a1a;
+  --accent-dark:        #ffffff;
+  --accent-dark-hover:  #e5e7eb;
+}
+
+/* Twitter / X Dim palette overrides */
+html.dim {
+  --dark-bg-primary:    #15202B;
+  --dark-bg-secondary:  #1E2732;
+  --dark-text-primary:  #F7F9F9;
+  --dark-text-secondary:#8899A6;
+  --dark-text-tertiary: #56687A;
+  --dark-border:        #2F3B47;
+  --accent-dark:        #1D9BF0;
+  --accent-dark-hover:  #1a8cd8;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,6 +77,26 @@
   body.dark li {
     @apply text-white;
   }
+
+  body.dim p,
+  body.dim li {
+    color: #F7F9F9;
+  }
+
+  html.dim,
+  body.dim {
+    background: #15202B;
+    color: #F7F9F9;
+  }
+
+  body.dim h1,
+  body.dim h2,
+  body.dim h3,
+  body.dim h4,
+  body.dim h5,
+  body.dim h6 {
+    color: #F7F9F9;
+  }
 }
 
 @layer components {
@@ -69,9 +118,99 @@
     @apply bg-clip-text text-transparent bg-gradient-to-br from-black to-black;
   }
 
+  body.dim .glass {
+    background: rgba(30, 39, 50, 0.85);
+    border-color: rgba(47, 59, 71, 0.6);
+    @apply shadow-glass-dark;
+    color: #F7F9F9;
+  }
+
   body.dark .gradient-text {
     @apply from-white to-white;
   }
+
+  body.dim .gradient-text {
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: #F7F9F9;
+    color: #F7F9F9;
+  }
+}
+
+/* =============================================
+   DIM THEME — HARDCODED CLASS OVERRIDES
+   Components that use bg-black / bg-white directly
+   (not via Tailwind tokens) need explicit overrides
+   when body.dim is active.
+============================================= */
+
+/* Header background */
+body.dim .dark\:bg-black\/90 {
+  background: rgba(21, 32, 43, 0.92) !important;
+}
+
+/* Header & mobile menu dividers / bg */
+body.dim .dark\:border-dark-border { border-color: #2F3B47; }
+
+/* Profile photo ring (Home page) */
+body.dim .dark\:bg-white { background: #1E2732 !important; }
+
+/* Skill pills in Home */
+body.dim .dark\:text-black { color: #F7F9F9 !important; }
+
+/* Blog sidebar category active chip */
+body.dim .dark\:bg-white.dark\:text-black {
+  background: #1D9BF0 !important;
+  color: #ffffff !important;
+}
+
+/* Mobile nav active item */
+body.dim .dark\:bg-accent-dark {
+  background: #1D9BF0 !important;
+}
+body.dim .dark\:text-black { color: #ffffff !important; }
+
+/* Header backdrop, mobile menu bg */
+body.dim .dark\:bg-black\/40 {
+  background: rgba(21, 32, 43, 0.5) !important;
+}
+body.dim .dark\:bg-black\/95 {
+  background: rgba(21, 32, 43, 0.96) !important;
+}
+
+/* GitHub calendar section */
+body.dim .dark\:bg-dark-bgPrimary {
+  background: #15202B;
+}
+
+/* =============================================
+   DIM THEME — OPACITY VARIANT FIXES
+   Tailwind's /N opacity modifier doesn't work with CSS variables
+   that resolve to HEX strings. Override each affected class here.
+============================================= */
+
+/* Blog post sidebar: meta card (date · read time · category) */
+body.dim .bg-light-bgSecondary\/40 {
+  background: rgba(30, 39, 50, 0.7) !important;
+  border: 1px solid rgba(47, 59, 71, 0.5) !important;
+}
+/* dark: variant also fails for same reason — fix it too */
+body.dim .dark\:bg-dark-bgSecondary\/40 {
+  background: rgba(30, 39, 50, 0.7) !important;
+}
+
+/* Blog sidebar / hover surfaces */
+body.dim .dark\:bg-dark-bgSecondary\/50 {
+  background: rgba(30, 39, 50, 0.6) !important;
+}
+body.dim .hover\:bg-light-bgSecondary\/50:hover {
+  background: rgba(30, 39, 50, 0.5) !important;
+}
+
+/* Meta card text in dim mode */
+body.dim .bg-light-bgSecondary\/40 .text-light-textSecondary,
+body.dim .bg-light-bgSecondary\/40 .dark\:text-dark-textSecondary {
+  color: #8899A6 !important;
 }
 
 /* =============================================

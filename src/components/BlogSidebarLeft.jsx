@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { FolderOpen, ArrowLeft } from "lucide-react";
 import logo from "../assets/util/logo.png";
+import { useAppContext } from "../context/AppContext";
+
 
 const listVariants = {
   hidden: { opacity: 0 },
@@ -24,6 +26,9 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const { theme } = useAppContext();
+  const isDim = theme === "dim";
+
   // Handle both /blogs and /blogs/ cases
   const isBlogsList = location.pathname === "/blogs" || location.pathname === "/blogs/";
 
@@ -75,7 +80,13 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
 
       {/* Post Metadata (Only when reading a blog) */}
       {!isBlogsList && activeBlog && (
-        <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 py-2 px-4 rounded-xl bg-light-bgSecondary/40 dark:bg-dark-bgSecondary/40">
+        <div
+          className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 py-2 px-4 rounded-xl bg-light-bgSecondary/40 dark:bg-dark-bgSecondary/40"
+          style={isDim ? {
+            background: "rgba(30, 39, 50, 0.75)",
+            border:     "1px solid rgba(47, 59, 71, 0.6)",
+          } : undefined}
+        >
           <div className="flex items-center gap-3 text-sm font-medium text-light-textSecondary dark:text-dark-textSecondary">
             <span>{formatDate(activeBlog.createdAt)}</span>
           </div>
@@ -85,13 +96,15 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
           <div className="flex items-center gap-3 text-sm font-medium text-light-textSecondary dark:text-dark-textSecondary mt-1">
             <Link
               to={`/blogs?category=${encodeURIComponent(activeBlog.categorySlug || activeBlog.categoryName)}`}
-              className="text-m font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors  hover:no-underline"
+              className="text-m font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors hover:no-underline"
+              style={isDim ? { color: "#1D9BF0" } : undefined}
             >
               {activeBlog.categoryName}
             </Link>
           </div>
         </div>
       )}
+
 
       {isBlogsList && (
         <>

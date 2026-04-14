@@ -18,21 +18,21 @@ export default {
           textTertiary: "#666666",
           border: "#cccccc",
         },
-        // Dark theme: pure black background with pure white text (no blue tints)
+        // Dark theme colors — driven by CSS variables so the dim theme can override them
         dark: {
-          bgPrimary: "#000000",
-          bgSecondary: "#0a0a0a",
-          textPrimary: "#ffffff",
-          textSecondary: "#ffffff",
-          textTertiary: "#ffffff",
-          border: "#1a1a1a",
+          bgPrimary:     "var(--dark-bg-primary)",
+          bgSecondary:   "var(--dark-bg-secondary)",
+          textPrimary:   "var(--dark-text-primary)",
+          textSecondary: "var(--dark-text-secondary)",
+          textTertiary:  "var(--dark-text-tertiary)",
+          border:        "var(--dark-border)",
         },
-        // Accent colors with proper contrast
+        // Accent colors — also CSS-variable-driven to switch between black and Twitter blue
         accent: {
-          light: "#000000",
+          light:     "#000000",
           lightHover: "#1f2937",
-          dark: "#ffffff",
-          darkHover: "#e5e7eb",
+          dark:      "var(--accent-dark)",
+          darkHover: "var(--accent-dark-hover)",
         },
       },
       boxShadow: {

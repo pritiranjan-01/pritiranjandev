@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { utils } from "../assets/util/util.js";
-
+import { useAppContext } from "../context/AppContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinkClasses =
@@ -38,9 +38,12 @@ const itemVariants = {
 };
 
 const Header = ({ isDarkMode, toggleTheme }) => {
+  const { theme, cycleTheme } = useAppContext();
+  // prefer cycleTheme from context; fall back to prop for legacy usage
+  const handleThemeClick = cycleTheme || toggleTheme;
+  const currentTheme = theme || (isDarkMode ? "dark" : "light");
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -50,6 +53,13 @@ const Header = ({ isDarkMode, toggleTheme }) => {
     setIsMobileMenuOpen(false);
   };
 
+  // Icon + label for the toggle button
+  const themeConfig = {
+    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />,  label: "Dim mode"  },
+    dim:   { icon: <span style={{fontSize:"1.1rem",lineHeight:1}}>🌑</span>, label: "Dark mode" },
+    dark:  { icon: <Sun  className="h-4 w-4 sm:h-5 sm:w-5" />,  label: "Light mode" },
+  };
+  const { icon: themeIcon, label: themeLabel } = themeConfig[currentTheme] || themeConfig.light;
   return (
     <>
       {/* Skip to Content Link - Accessibility */}
@@ -158,15 +168,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
 
             <button
               type="button"
-              onClick={toggleTheme}
+              onClick={handleThemeClick}
+              title={themeLabel}
               className="rounded-full border border-light-border p-1.5 sm:p-2 text-light-textPrimary shadow-sm hover:bg-light-bgSecondary dark:border-dark-border dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary transition-colors"
-              aria-label="Toggle theme"
+              aria-label={themeLabel}
             >
-              {isDarkMode ? (
-                <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
-              ) : (
-                <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
-              )}
+              {themeIcon}
             </button>
           </div>
 
@@ -174,15 +181,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
           <div className="md:hidden flex items-center gap-2 sm:gap-3">
             <button
               type="button"
-              onClick={toggleTheme}
+              onClick={handleThemeClick}
+              title={themeLabel}
               className="rounded-full border border-light-border p-1.5 sm:p-2 text-light-textPrimary shadow-sm hover:bg-light-bgSecondary dark:border-dark-border dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary transition-colors"
-              aria-label="Toggle theme"
+              aria-label={themeLabel}
             >
-              {isDarkMode ? (
-                <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
-              ) : (
-                <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
-              )}
+              {themeIcon}
             </button>
 
             <button

@@ -30,12 +30,20 @@ const itemVariants = {
 
 const BlogLayout = ({ children, activeBlog }) => {
   const { categories, blogs } = useBlogContext();
-  const { isDarkMode, toggleTheme } = useAppContext();
+  const { isDarkMode, theme, cycleTheme } = useAppContext();
   const navigate = useNavigate();
   const location = useLocation();
 
   const isBlogsList =
     location.pathname === "/blogs" || location.pathname === "/blogs/";
+
+  const currentTheme = theme || (isDarkMode ? "dark" : "light");
+  const themeConfig = {
+    light: { icon: <Moon className="h-3 w-3 text-light-textSecondary" />, label: "Switch to Dim" },
+    dim:   { icon: <span style={{fontSize:"0.75rem",lineHeight:1}}>🌑</span>,                  label: "Switch to Dark" },
+    dark:  { icon: <Sun  className="h-3 w-3 text-gray-300" />,            label: "Switch to Light" },
+  };
+  const { icon: themeIcon, label: themeLabel } = themeConfig[currentTheme] || themeConfig.light;
 
   return (
     <div className="flex flex-col min-h-screen bg-light-bgPrimary dark:bg-dark-bgPrimary transition-colors duration-300">
@@ -60,20 +68,17 @@ const BlogLayout = ({ children, activeBlog }) => {
           </div>
 
           <button
-            onClick={toggleTheme}
+            onClick={cycleTheme}
             className="relative inline-flex h-7 w-12 items-center rounded-full bg-light-border dark:bg-light-border transition-colors outline-none border border-transparent"
-            aria-label="Toggle dark mode"
+            aria-label={themeLabel}
+            title={themeLabel}
           >
             <span
-              className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-black shadow transition-transform ${
-                isDarkMode ? "translate-x-6" : "translate-x-1"
+              className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-dark-bgSecondary shadow transition-transform ${
+                currentTheme === "light" ? "translate-x-1" : currentTheme === "dim" ? "translate-x-3" : "translate-x-6"
               } flex items-center justify-center`}
             >
-              {isDarkMode ? (
-                <Moon className="h-3 w-3 text-white dark:text-gray-300" />
-              ) : (
-                <Sun className="h-3 w-3 text-light-textSecondary" />
-              )}
+              {themeIcon}
             </span>
           </button>
         </div>
