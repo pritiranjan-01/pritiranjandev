@@ -248,6 +248,58 @@ body.dim .dark\:shadow-glass-dark {
 }
 
 /* =============================================
+   DARK THEME — ADMIN PANEL OPACITY VARIANT FIXES
+   Tailwind's /N opacity modifier fails when CSS variables
+   resolve to HEX strings (e.g. --dark-bg-secondary: #0a0a0a).
+   Dark theme = body.dark without body.dim.
+   These overrides restore the correct dark backgrounds for all
+   admin cards, tables, buttons and inputs that use
+   opacity-suffixed dark: classes.
+============================================= */
+
+/* Admin sidebar (uses hardcoded bg-white) */
+body.dark:not(.dim) aside.fixed {
+  background: #0a0a0a !important;
+  border-color: #1a1a1a !important;
+}
+
+/* Admin mobile header (uses hardcoded bg-white) */
+body.dark:not(.dim) header.sticky {
+  background: #0a0a0a !important;
+  border-color: #1a1a1a !important;
+}
+
+/* Cards / panels that fall back to bg-white */
+body.dark:not(.dim) .bg-white:not(.hljs):not(pre) {
+  background: #0a0a0a !important;
+}
+
+/* dark:bg-dark-bgSecondary/40 → rgba(10,10,10,0.7) */
+body.dark:not(.dim) .dark\:bg-dark-bgSecondary\/40 {
+  background: rgba(10, 10, 10, 0.7) !important;
+}
+
+/* dark:bg-dark-bgSecondary/50 → rgba(10,10,10,0.6) */
+body.dark:not(.dim) .dark\:bg-dark-bgSecondary\/50 {
+  background: rgba(10, 10, 10, 0.6) !important;
+}
+
+/* dark:bg-dark-bgSecondary/60 → rgba(10,10,10,0.75) */
+body.dark:not(.dim) .dark\:bg-dark-bgSecondary\/60 {
+  background: rgba(10, 10, 10, 0.75) !important;
+}
+
+/* dark:bg-dark-bgSecondary/20 → rgba(10,10,10,0.4) (table footer) */
+body.dark:not(.dim) .dark\:bg-dark-bgSecondary\/20 {
+  background: rgba(10, 10, 10, 0.4) !important;
+}
+
+/* dark:bg-dark-bgSecondary/30 → rgba(10,10,10,0.5) (hover rows) */
+body.dark:not(.dim) .dark\:bg-dark-bgSecondary\/30 {
+  background: rgba(10, 10, 10, 0.5) !important;
+}
+
+/* =============================================
    DIM THEME — OPACITY VARIANT FIXES
    Tailwind's /N opacity modifier doesn't work with CSS variables
    that resolve to HEX strings. Override each affected class here.
