@@ -300,6 +300,44 @@ body.dark:not(.dim) .dark\:bg-dark-bgSecondary\/30 {
 }
 
 /* =============================================
+   HOVER STATE FIXES — DARK & DIM MODES
+   dark:hover:bg-dark-bgSecondary/N fails on hex CSS vars.
+   The element falls back to hover:bg-light-bgSecondary (#f8f9fa)
+   making hovered nav items flash white.
+   Fix both the failing dark: variant AND the light fallback.
+============================================= */
+
+/* --- Pure dark mode hover fixes --- */
+body.dark:not(.dim) .dark\:hover\:bg-dark-bgSecondary\/50:hover {
+  background: rgba(10, 10, 10, 0.6) !important;
+}
+body.dark:not(.dim) .dark\:hover\:bg-dark-bgSecondary\/30:hover {
+  background: rgba(10, 10, 10, 0.4) !important;
+}
+/* Suppress the light fallback hover inside dark panels/sidebar */
+body.dark:not(.dim) .hover\:bg-light-bgSecondary:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+body.dark:not(.dim) .hover\:bg-light-bgSecondary\/50:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* --- Dim mode hover fixes --- */
+body.dim .dark\:hover\:bg-dark-bgSecondary\/50:hover {
+  background: rgba(30, 39, 50, 0.8) !important;
+}
+body.dim .dark\:hover\:bg-dark-bgSecondary\/30:hover {
+  background: rgba(30, 39, 50, 0.5) !important;
+}
+/* Suppress the light fallback hover inside dim panels/sidebar */
+body.dim .hover\:bg-light-bgSecondary:hover {
+  background: rgba(47, 59, 71, 0.4) !important;
+}
+body.dim .hover\:bg-light-bgSecondary\/50:hover {
+  background: rgba(47, 59, 71, 0.3) !important;
+}
+
+/* =============================================
    DIM THEME — OPACITY VARIANT FIXES
    Tailwind's /N opacity modifier doesn't work with CSS variables
    that resolve to HEX strings. Override each affected class here.
