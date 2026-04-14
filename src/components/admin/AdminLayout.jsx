@@ -10,7 +10,8 @@ import {
   X,
   PlusCircle,
   Sun,
-  Moon
+  Moon,
+  SunDim
 } from "lucide-react";
 import { logout } from "../../services/api";
 import { useAppContext } from "../../context/AppContext";
@@ -18,7 +19,15 @@ import { useAppContext } from "../../context/AppContext";
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
-  const { isDarkMode, toggleTheme } = useAppContext();
+  const { theme, isDarkMode, cycleTheme } = useAppContext();
+
+  // 3-state theme icon: light → Moon, dim → CircleHalf, dark → Sun
+  const themeConfig = {
+    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />,        label: "Switch to Dim" },
+    dim:   { icon: <SunDim className="h-4 w-4 sm:h-5 sm:w-5" />,      label: "Switch to Dark" },
+    dark:  { icon: <Sun className="h-4 w-4 sm:h-5 sm:w-5" />,          label: "Switch to Light" },
+  };
+  const { icon: themeIcon, label: themeLabel } = themeConfig[theme] ?? themeConfig.light;
 
   const handleLogout = () => {
     logout();
@@ -63,15 +72,12 @@ const AdminLayout = () => {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={toggleTheme}
+                onClick={cycleTheme}
+                title={themeLabel}
                 className="hidden lg:flex rounded-full border border-light-border p-1.5 sm:p-2 text-light-textPrimary shadow-sm hover:bg-light-bgSecondary dark:border-dark-border dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary transition-colors"
-                aria-label="Toggle theme"
+                aria-label={themeLabel}
               >
-                {isDarkMode ? (
-                  <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
-                ) : (
-                  <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
-                )}
+                {themeIcon}
               </button>
               <button
                 className="lg:hidden text-light-textSecondary dark:text-dark-textSecondary"
@@ -155,15 +161,12 @@ const AdminLayout = () => {
           </div>
           <button
             type="button"
-            onClick={toggleTheme}
+            onClick={cycleTheme}
+            title={themeLabel}
             className="rounded-full border border-light-border p-1.5 sm:p-2 text-light-textPrimary shadow-sm hover:bg-light-bgSecondary dark:border-dark-border dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary transition-colors"
-            aria-label="Toggle theme"
+            aria-label={themeLabel}
           >
-            {isDarkMode ? (
-              <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
-            ) : (
-              <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
-            )}
+            {themeIcon}
           </button>
         </header>
 

@@ -184,6 +184,70 @@ body.dim .dark\:bg-dark-bgPrimary {
 }
 
 /* =============================================
+   DIM THEME — ADMIN PANEL OVERRIDES
+   Admin pages mix bg-white (sidebar, cards) and
+   bg-black (pagination buttons, focus states) that
+   need explicit overrides in dim mode.
+============================================= */
+
+/* ------- AdminLayout sidebar & mobile header ------- */
+/* Sidebar base (uses hardcoded bg-white) */
+body.dim aside.fixed {
+  background: #1E2732 !important;
+  border-color: #2F3B47 !important;
+}
+
+/* Mobile header bar (uses hardcoded bg-white) */
+body.dim header.sticky {
+  background: #1E2732 !important;
+  border-color: #2F3B47 !important;
+}
+
+/* ------- Admin cards that use bg-white ------- */
+/* ManageBlog table container, Category panels, CreateBlog editor cards */
+body.dim .dark\:bg-dark-bgSecondary\/40 {
+  background: rgba(30, 39, 50, 0.7) !important;
+}
+body.dim .dark\:bg-dark-bgSecondary\/60 {
+  background: rgba(30, 39, 50, 0.75) !important;
+}
+
+/* Cards using literal bg-white in Admin (no dark: variant) */
+body.dim .bg-white:not(.hljs):not(pre) {
+  background: #1E2732 !important;
+}
+
+/* ------- Login page card border ------- */
+/* Uses border-black / dark:border-white – in dim it should be the dim border colour */
+body.dim .dark\:border-white {
+  border-color: #2F3B47 !important;
+}
+
+/* ------- Pagination & action buttons using dark:bg-black ------- */
+body.dim .dark\:bg-black {
+  background: #15202B !important;
+}
+body.dim .dark\:hover\:bg-black:hover {
+  background: #1E2732 !important;
+}
+
+/* ------- Input focus states that use dark:focus:bg-black ------- */
+body.dim .dark\:focus\:bg-black:focus {
+  background: #1E2732 !important;
+}
+
+/* ------- Table header row in ManageBlog ------- */
+body.dim .dark\:bg-dark-bgSecondary\/20 {
+  background: rgba(30, 39, 50, 0.5) !important;
+}
+
+/* ------- Login icon circle: dark:bg-accent-dark dark:text-black ------- */
+/* accent-dark in dim = #1D9BF0, text-black → white */
+body.dim .dark\:shadow-glass-dark {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* =============================================
    DIM THEME — OPACITY VARIANT FIXES
    Tailwind's /N opacity modifier doesn't work with CSS variables
    that resolve to HEX strings. Override each affected class here.
