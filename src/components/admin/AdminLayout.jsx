@@ -10,8 +10,7 @@ import {
   X,
   PlusCircle,
   Sun,
-  Moon,
-  SunDim
+  Moon
 } from "lucide-react";
 import { logout } from "../../services/api";
 import { useAppContext } from "../../context/AppContext";
@@ -21,11 +20,11 @@ const AdminLayout = () => {
   const navigate = useNavigate();
   const { theme, isDarkMode, cycleTheme } = useAppContext();
 
-  // 3-state theme icon: light → Moon, dim → CircleHalf, dark → Sun
+  // 3-state theme icon: light → Moon, dim → 🌑, dark → Sun
   const themeConfig = {
-    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />,        label: "Switch to Dim" },
-    dim:   { icon: <SunDim className="h-4 w-4 sm:h-5 sm:w-5" />,      label: "Switch to Dark" },
-    dark:  { icon: <Sun className="h-4 w-4 sm:h-5 sm:w-5" />,          label: "Switch to Light" },
+    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Dim mode"   },
+    dim:   { icon: <span style={{fontSize:"1.1rem",lineHeight:1}}>🌑</span>,         label: "Dark mode"  },
+    dark:  { icon: <Sun  className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Light mode" },
   };
   const { icon: themeIcon, label: themeLabel } = themeConfig[theme] ?? themeConfig.light;
 

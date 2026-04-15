@@ -53,11 +53,10 @@ const Header = ({ isDarkMode, toggleTheme }) => {
     setIsMobileMenuOpen(false);
   };
 
-  // Icon + label for the toggle button
   const themeConfig = {
-    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />,  label: "Dim mode"  },
-    dim:   { icon: <span style={{fontSize:"1.1rem",lineHeight:1}}>🌑</span>, label: "Dark mode" },
-    dark:  { icon: <Sun  className="h-4 w-4 sm:h-5 sm:w-5" />,  label: "Light mode" },
+    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Dim mode"   },
+    dim:   { icon: <span style={{fontSize:"1.1rem",lineHeight:1}}>🌑</span>,         label: "Dark mode"  },
+    dark:  { icon: <Sun  className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Light mode" },
   };
   const { icon: themeIcon, label: themeLabel } = themeConfig[currentTheme] || themeConfig.light;
   return (
