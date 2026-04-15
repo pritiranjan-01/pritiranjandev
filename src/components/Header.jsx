@@ -59,6 +59,15 @@ const Header = ({ isDarkMode, toggleTheme }) => {
     dark:  { icon: <Sun  className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Light mode" },
   };
   const { icon: themeIcon, label: themeLabel } = themeConfig[currentTheme] || themeConfig.light;
+
+  // Sky-blue accent underline only in dim; original colours for light & dark
+  const underlineClass =
+    currentTheme === "dim"
+      ? "bg-[#1D9BF0]"
+      : currentTheme === "dark"
+      ? "bg-[#ffffff]"
+      : "bg-black";
+
   return (
     <>
       {/* Skip to Content Link - Accessibility */}
@@ -119,7 +128,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                         {isActive && (
                           <motion.div
                             layoutId="underline"
-                            className="absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 bg-black dark:bg-white"
+                            className={`absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 ${underlineClass}`}
                           />
                         )}
                       </>
@@ -137,7 +146,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                         {isActive && (
                           <motion.div
                             layoutId="underline"
-                            className="absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 bg-black dark:bg-white"
+                            className={`absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 ${underlineClass}`}
                           />
                         )}
                       </>
@@ -155,7 +164,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                         {isActive && (
                           <motion.div
                             layoutId="underline"
-                            className="absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 bg-black dark:bg-white"
+                            className={`absolute bottom-0 left-0 right-0 mx-auto w-[80%] h-0.5 ${underlineClass}`}
                           />
                         )}
                       </>
