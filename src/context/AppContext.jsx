@@ -7,6 +7,18 @@ import {
 import { projectDemos } from "../assets/projectDemos/index.js";
 import { projectPosters } from "../assets/projectPosters/index.js";
 
+// react-icons imports
+import { FaReact, FaHtml5, FaCss3Alt, FaJava, FaAws, FaDatabase, FaCode, FaSitemap, FaCloud } from "react-icons/fa";
+import {
+  SiJavascript,
+  SiTailwindcss,
+  SiSpringboot,
+  SiMysql,
+  SiPostgresql,
+  SiMongodb,
+  SiVercel,
+} from "react-icons/si";
+
 
 const sampleProjects = [
   {
@@ -101,27 +113,41 @@ const sampleProjects = [
 const skillCategories = [
   {
     title: "Frontend",
-    skills: ["React", "JavaScript", "Tailwind CSS", "HTML", "CSS"],
+    skills: [
+      { name: "React",        icon: FaReact       },
+      { name: "JavaScript",   icon: SiJavascript  },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "HTML",         icon: FaHtml5       },
+      { name: "CSS",          icon: FaCss3Alt     },
+    ],
   },
   {
     title: "Backend",
     skills: [
-      "Java",
-      "J2EE",
-      "Hibernate",
-      "Spring Framework",
-      "Spring Boot",
-      "REST APIs",
-      "Microservices",
+      { name: "Java",             icon: FaJava      },
+      { name: "J2EE",             icon: FaJava      },
+      { name: "Hibernate",        icon: FaDatabase  },
+      { name: "Spring Framework", icon: SiSpringboot },
+      { name: "Spring Boot",      icon: SiSpringboot },
+      { name: "REST APIs",        icon: FaCode      },
+      { name: "Microservices",    icon: FaSitemap   },
     ],
   },
   {
     title: "Databases",
-    skills: ["MySQL", "PostgreSQL", "MongoDB"],
+    skills: [
+      { name: "MySQL",      icon: SiMysql      },
+      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "MongoDB",    icon: SiMongodb    },
+    ],
   },
   {
     title: "Clouds",
-    skills: ["AWS (IAM, EC2, S3, EB, RDS)", "Render", "Vercel"],
+    skills: [
+      { name: "AWS (IAM, EC2, S3, EB, RDS)", icon: FaAws    },
+      { name: "Render",                       icon: FaCloud  },
+      { name: "Vercel",                       icon: SiVercel },
+    ],
   },
 ];
 

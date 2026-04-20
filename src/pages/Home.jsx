@@ -128,14 +128,18 @@ const Home = () => {
                   {category.title}
                 </h3>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="cursor-pointer rounded-full bg-black px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white hover:opacity-80 dark:bg-white dark:text-black"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  {category.skills.map((skill) => {
+                    const Icon = skill.icon;
+                    return (
+                      <span
+                        key={skill.name}
+                        className="cursor-pointer inline-flex items-center gap-1.5 rounded-full bg-black px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white hover:opacity-80 dark:bg-white dark:text-black transition-opacity duration-200"
+                      >
+                        {Icon && <Icon size={14} aria-hidden="true" className="flex-shrink-0" />}
+                        {skill.name}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             ))}
