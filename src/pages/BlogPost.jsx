@@ -21,6 +21,22 @@ import { getBlogBySlug } from "../services/api";
 import BlogErrorState from "../components/BlogErrorState";
 import BlogLayout from "../components/BlogLayout";
 
+// Converts a heading's text content into the same slug GitHub/GFM produces.
+// e.g. "1. What is JWT?" → "1-what-is-jwt"
+const slugify = (children) => {
+  const text = Array.isArray(children)
+    ? children
+        .map((c) => (typeof c === "string" ? c : c?.props?.children ?? ""))
+        .join("")
+    : String(children ?? "");
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "") // strip punctuation except hyphens
+    .replace(/[\s_]+/g, "-")  // spaces/underscores → hyphens
+    .replace(/-+/g, "-");      // collapse consecutive hyphens
+};
+
 const BlogPost = () => {
   const { isDarkMode } = useAppContext();
   const { slug } = useParams();
@@ -77,6 +93,16 @@ const BlogPost = () => {
         "_blank",
       );
     }
+  };
+
+  const shareBluesky = () => {
+    const text = encodeURIComponent(
+      `${blog?.title}\n\n${window.location.href}`,
+    );
+    window.open(
+      `https://bsky.app/intent/compose?text=${text}`,
+      "_blank",
+    );
   };
 
   // Scroll to top on mount
@@ -209,42 +235,60 @@ const BlogPost = () => {
               ],
             ]}
             components={{
-              // Headings
-              h1: ({ node, ...props }) => (
+              // Headings — id is derived from heading text so TOC anchor links work
+              h1: ({ node, children, ...props }) => (
                 <h1
+                  id={slugify(children)}
                   className="text-3xl font-bold mt-8 mb-4 text-light-textPrimary dark:text-dark-textPrimary border-b border-light-border dark:border-dark-border pb-2"
                   {...props}
-                />
+                >
+                  {children}
+                </h1>
               ),
-              h2: ({ node, ...props }) => (
+              h2: ({ node, children, ...props }) => (
                 <h2
+                  id={slugify(children)}
                   className="text-2xl font-bold mt-8 mb-3 text-light-textPrimary dark:text-dark-textPrimary border-b border-light-border dark:border-dark-border pb-2"
                   {...props}
-                />
+                >
+                  {children}
+                </h2>
               ),
-              h3: ({ node, ...props }) => (
+              h3: ({ node, children, ...props }) => (
                 <h3
+                  id={slugify(children)}
                   className="text-xl font-semibold mt-6 mb-3 text-light-textPrimary dark:text-dark-textPrimary"
                   {...props}
-                />
+                >
+                  {children}
+                </h3>
               ),
-              h4: ({ node, ...props }) => (
+              h4: ({ node, children, ...props }) => (
                 <h4
+                  id={slugify(children)}
                   className="text-lg font-semibold mt-5 mb-2 text-light-textPrimary dark:text-dark-textPrimary"
                   {...props}
-                />
+                >
+                  {children}
+                </h4>
               ),
-              h5: ({ node, ...props }) => (
+              h5: ({ node, children, ...props }) => (
                 <h5
+                  id={slugify(children)}
                   className="text-base font-semibold mt-4 mb-2 text-light-textPrimary dark:text-dark-textPrimary"
                   {...props}
-                />
+                >
+                  {children}
+                </h5>
               ),
-              h6: ({ node, ...props }) => (
+              h6: ({ node, children, ...props }) => (
                 <h6
+                  id={slugify(children)}
                   className="text-sm font-semibold mt-4 mb-2 text-light-textSecondary dark:text-dark-textSecondary uppercase tracking-wide"
                   {...props}
-                />
+                >
+                  {children}
+                </h6>
               ),
               // Paragraph
               p: ({ node, ...props }) => (
@@ -410,6 +454,22 @@ const BlogPost = () => {
               aria-label="Share on LinkedIn"
             >
               <Linkedin className="h-5 w-5" />
+            </button>
+            {/* Bluesky — no lucide icon, use official butterfly SVG */}
+            <button
+              onClick={shareBluesky}
+              className="flex items-center justify-center rounded-full bg-[#0085FF]/10 p-2.5 text-[#0085FF] transition-colors hover:bg-[#0085FF]/20"
+              aria-label="Share on Bluesky"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 568 501"
+                className="h-5 w-5"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M123.121 33.664C188.241 82.553 258.281 181.68 284 234.873c25.719-53.192 95.759-152.32 160.879-201.209C491.866-1.611 568-28.906 568 57.947c0 17.346-9.945 145.713-15.778 166.555-20.275 72.453-94.155 90.933-159.875 79.748C507.222 323.8 536.444 388.56 473.333 453.32c-119.86 122.992-172.272-30.859-185.702-70.281-2.462-7.227-3.614-10.608-3.631-7.733-.017-2.875-1.169.506-3.631 7.733-13.43 39.422-65.842 193.273-185.702 70.281-63.111-64.76-33.889-129.52 80.986-149.07-65.72 11.185-139.6-7.295-159.875-79.748C9.945 203.66 0 75.293 0 57.947 0-28.906 76.134-1.611 123.121 33.664Z" />
+              </svg>
             </button>
             <button
               onClick={handleCopyLink}
