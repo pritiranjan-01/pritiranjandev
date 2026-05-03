@@ -33,8 +33,10 @@ const slugify = (children) => {
     .toLowerCase()
     .trim()
     .replace(/[^\w\s-]/g, "") // strip punctuation except hyphens
-    .replace(/[\s_]+/g, "-")  // spaces/underscores → hyphens
-    .replace(/-+/g, "-");      // collapse consecutive hyphens
+    .replace(/[\s_]+/g, "-"); // spaces/underscores → hyphens
+  // NOTE: do NOT collapse consecutive hyphens — GFM keeps them.
+  // e.g. "Best Practices & Common Mistakes" → "best-practices--common-mistakes"
+  //       because "&" is stripped leaving two spaces → "--"
 };
 
 const BlogPost = () => {
