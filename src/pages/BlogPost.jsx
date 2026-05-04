@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -12,6 +13,7 @@ import "highlight.js/styles/atom-one-dark.css";
 import { useAppContext } from "../context/AppContext";
 import {
   ArrowLeft,
+  ArrowUp,
   Linkedin,
   Twitter,
   Link as LinkIcon,
@@ -48,6 +50,7 @@ const BlogPost = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const handleBackToBlogs = (e) => {
     e.preventDefault();
@@ -115,6 +118,13 @@ const BlogPost = () => {
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       }, 0);
     });
+  }, []);
+
+  // Show/hide scroll-to-top button
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Fetch blog post from API
@@ -488,6 +498,23 @@ const BlogPost = () => {
           </div>
         </div>
       </article>
+
+      {/* Scroll-to-top — rendered via portal into document.body so Framer Motion's
+          transform stacking context on motion.main cannot trap the fixed position */}
+      {ReactDOM.createPortal(
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Scroll to top"
+          className={`fixed bottom-8 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-light-border dark:border-dark-border bg-light-bgSecondary dark:bg-dark-bgSecondary text-light-textPrimary dark:text-dark-textPrimary shadow-lg transition-all duration-300 hover:scale-110 hover:border-accent-light dark:hover:border-accent-dark hover:text-accent-light dark:hover:text-accent-dark ${
+            showScrollTop
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
+        >
+          <ArrowUp className="h-5 w-5" />
+        </button>,
+        document.body,
+      )}
 
       <style>{`
         @keyframes blogpost-fade-in {
