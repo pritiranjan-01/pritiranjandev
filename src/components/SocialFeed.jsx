@@ -1,11 +1,18 @@
 import React from "react";
-import {
-  Twitter,
-  Linkedin,
-  Youtube,
-  Instagram,
-  Github,
-} from "lucide-react";
+import { Twitter, Linkedin, Youtube, Instagram, Github } from "lucide-react";
+
+// Substack doesn't have a lucide icon, so we use an inline SVG component
+const SubstackIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
+  </svg>
+);
 
 const socials = [
   {
@@ -31,6 +38,12 @@ const socials = [
     label: "X (Twitter)",
     href: "https://twitter.com/CuriousRanjan",
     icon: Twitter,
+  },
+  {
+    id: "substack",
+    label: "Substack",
+    href: "https://substack.com/@pritiranjanmohanty",
+    icon: SubstackIcon,
   },
 ];
 
