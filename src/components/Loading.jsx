@@ -23,13 +23,11 @@ export default function Loading() {
       <div className="h-10 w-10 animate-spin rounded-full border-2 border-accent-DEFAULT border-t-transparent dark:border-accent-dark mb-4" />
 
       {/* Message */}
-      <p className="text-lg font-medium">Waking up the server...</p>
+      <p className="text-lg font-medium">Spinning up the server</p>
 
       {/* Countdown */}
       <p className="text-sm text-gray-500 mt-2">
-        {timeLeft > 0
-          ? `Please wait... ${timeLeft}s`
-          : "Almost ready..."}
+        {timeLeft > 0 ? `Please wait... ${timeLeft}s` : "Almost ready..."}
       </p>
     </div>
   );
