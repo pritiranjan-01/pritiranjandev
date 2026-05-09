@@ -15,7 +15,6 @@ import {
   ArrowLeft,
   ArrowUp,
   Linkedin,
-  Twitter,
   Link as LinkIcon,
   CheckCircle2,
 } from "lucide-react";
@@ -456,10 +455,19 @@ const BlogPost = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={shareTwitter}
-              className="flex items-center justify-center rounded-full bg-[#1DA1F2]/10 p-2.5 text-[#1DA1F2] transition-colors hover:bg-[#1DA1F2]/20"
-              aria-label="Share on Twitter"
+              className="flex items-center justify-center rounded-full bg-black/10 p-2.5 text-black dark:text-white transition-colors hover:bg-black/20 dark:hover:bg-white/20"
+              aria-label="Share on X"
             >
-              <Twitter className="h-5 w-5" />
+              {/* X (formerly Twitter) logo */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 1227"
+                className="h-5 w-5"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284zM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854z" />
+              </svg>
             </button>
             <button
               onClick={shareLinkedIn}
