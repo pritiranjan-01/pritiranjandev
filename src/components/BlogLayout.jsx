@@ -39,14 +39,24 @@ const BlogLayout = ({ children, activeBlog }) => {
 
   const currentTheme = theme || (isDarkMode ? "dark" : "light");
   const themeConfig = {
-    light: { icon: <Moon className="h-3 w-3 text-light-textSecondary" />, label: "Switch to Dim" },
-    dim:   { icon: <span style={{fontSize:"0.75rem",lineHeight:1}}>🌑</span>,                  label: "Switch to Dark" },
-    dark:  { icon: <Sun  className="h-3 w-3 text-gray-300" />,            label: "Switch to Light" },
+    light: {
+      icon: <Moon className="h-3 w-3 text-light-textSecondary" />,
+      label: "Switch to Dim",
+    },
+    dim: {
+      icon: <span style={{ fontSize: "0.75rem", lineHeight: 1 }}>🌑</span>,
+      label: "Switch to Dark",
+    },
+    dark: {
+      icon: <Sun className="h-3 w-3 text-gray-300" />,
+      label: "Switch to Light",
+    },
   };
-  const { icon: themeIcon, label: themeLabel } = themeConfig[currentTheme] || themeConfig.light;
+  const { icon: themeIcon, label: themeLabel } =
+    themeConfig[currentTheme] || themeConfig.light;
 
   return (
-    <div className="flex flex-col min-h-screen bg-light-bgPrimary dark:bg-dark-bgPrimary transition-colors duration-300">
+    <div className="flex flex-col min-h-screen overflow-x-hidden bg-light-bgPrimary dark:bg-dark-bgPrimary transition-colors duration-300">
       {/* Top Header */}
       <header className="flex items-center justify-between w-full px-4 sm:px-6 lg:px-8 py-3 bg-light-bgPrimary dark:bg-dark-bgPrimary border-b border-light-border dark:border-white/10">
         {/* Left Side: Back */}
@@ -75,7 +85,11 @@ const BlogLayout = ({ children, activeBlog }) => {
           >
             <span
               className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-dark-bgSecondary shadow transition-transform ${
-                currentTheme === "light" ? "translate-x-1" : currentTheme === "dim" ? "translate-x-3" : "translate-x-6"
+                currentTheme === "light"
+                  ? "translate-x-1"
+                  : currentTheme === "dim"
+                    ? "translate-x-3"
+                    : "translate-x-6"
               } flex items-center justify-center`}
             >
               {themeIcon}
@@ -102,25 +116,32 @@ const BlogLayout = ({ children, activeBlog }) => {
         </motion.aside>
 
         {/* Main Content Area */}
-        <motion.main variants={itemVariants} className="flex-1 min-w-0">
+        <motion.main
+          variants={itemVariants}
+          className={`flex-1 w-full min-w-0${activeBlog ? " lg:max-w-[800px]" : ""}`}
+        >
           {children}
         </motion.main>
 
-        {/* Right Sidebar (Recent Posts) */}
-        <motion.aside
-          variants={itemVariants}
-          className="w-full lg:w-72 xl:w-80 shrink-0 hidden lg:block"
-        >
-          <BlogSidebarRight blogs={blogs || []} />
-        </motion.aside>
+        {/* Right Sidebar (Recent Posts) — hidden on single blog post pages */}
+        {!activeBlog && (
+          <motion.aside
+            variants={itemVariants}
+            className="w-full lg:w-72 xl:w-80 shrink-0 hidden lg:block"
+          >
+            <BlogSidebarRight blogs={blogs || []} />
+          </motion.aside>
+        )}
 
-        {/* Mobile-only recent Posts (Stack at the bottom) */}
-        <motion.aside
-          variants={itemVariants}
-          className="w-full lg:hidden shrink-0 mt-8 border-t border-light-border dark:border-dark-border pt-8"
-        >
-          <BlogSidebarRight blogs={blogs || []} />
-        </motion.aside>
+        {/* Mobile-only recent Posts — hidden on single blog post pages */}
+        {!activeBlog && (
+          <motion.aside
+            variants={itemVariants}
+            className="w-full lg:hidden shrink-0 mt-8 border-t border-light-border dark:border-dark-border pt-8"
+          >
+            <BlogSidebarRight blogs={blogs || []} />
+          </motion.aside>
+        )}
       </motion.div>
     </div>
   );
