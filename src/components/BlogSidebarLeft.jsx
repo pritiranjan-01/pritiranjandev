@@ -1,10 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useSearchParams,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { FolderOpen, ArrowLeft } from "lucide-react";
+import { useAppContext, socials } from "../context/AppContext";
 import logo from "../assets/util/logo.png";
-import { useAppContext } from "../context/AppContext";
-
 
 const listVariants = {
   hidden: { opacity: 0 },
@@ -29,8 +33,9 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
   const { theme } = useAppContext();
   const isDim = theme === "dim";
 
-  // Handle both /blogs and /blogs/ cases
-  const isBlogsList = location.pathname === "/blogs" || location.pathname === "/blogs/";
+  // Handle both /blog and /blog/ cases
+  const isBlogsList =
+    location.pathname === "/blog" || location.pathname === "/blog/";
 
   // If we are on the blog list, use the search param. Otherwise, no category is active.
   const activeCategory = isBlogsList ? searchParams.get("category") : null;
@@ -66,7 +71,10 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
 
       {/* Author Section */}
       <div className="flex flex-col items-center text-center mt-2">
-        <Link to="/blogs" className="group relative mb-4 block h-20 w-20 overflow-hidden rounded-full border-2 border-accent-light dark:border-accent-dark transition-transform hover:scale-105 cursor-pointer">
+        <Link
+          to="/blog"
+          className="group relative mb-4 block h-20 w-20 overflow-hidden rounded-full border-2 border-accent-light dark:border-accent-dark transition-transform hover:scale-105 cursor-pointer"
+        >
           <img
             src={logo}
             alt="Pritiranjan Mohanty"
@@ -76,16 +84,37 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
         <h2 className="text-sm font-bold text-light-textPrimary dark:text-dark-textPrimary">
           Pritiranjan Mohanty
         </h2>
+
+        {/* Social Icons */}
+        <div className="mt-3 flex items-center justify-center gap-2">
+          {socials.map(({ id, label, href, icon: Icon }) => (
+            <a
+              key={id}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              title={label}
+              aria-label={label}
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-light-border text-light-textSecondary transition-all hover:border-accent-light hover:text-accent-light hover:scale-110 dark:border-dark-border dark:text-dark-textSecondary dark:hover:border-accent-dark dark:hover:text-accent-dark"
+            >
+              <Icon className="h-3.5 w-3.5" />
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Post Metadata (Only when reading a blog) */}
       {!isBlogsList && activeBlog && (
         <div
           className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 py-2 px-4 rounded-xl bg-light-bgSecondary/40 dark:bg-dark-bgSecondary/40"
-          style={isDim ? {
-            background: "rgba(30, 39, 50, 0.75)",
-            border:     "1px solid rgba(47, 59, 71, 0.6)",
-          } : undefined}
+          style={
+            isDim
+              ? {
+                  background: "rgba(30, 39, 50, 0.75)",
+                  border: "1px solid rgba(47, 59, 71, 0.6)",
+                }
+              : undefined
+          }
         >
           <div className="flex items-center gap-3 text-sm font-medium text-light-textSecondary dark:text-dark-textSecondary">
             <span>{formatDate(activeBlog.createdAt)}</span>
@@ -95,7 +124,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
           </div>
           <div className="flex items-center gap-3 text-sm font-medium text-light-textSecondary dark:text-dark-textSecondary mt-1">
             <Link
-              to={`/blogs?category=${encodeURIComponent(activeBlog.categorySlug || activeBlog.categoryName)}`}
+              to={`/blog?category=${encodeURIComponent(activeBlog.categorySlug || activeBlog.categoryName)}`}
               className="text-m font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors hover:no-underline"
               style={isDim ? { color: "#1D9BF0" } : undefined}
             >
@@ -104,7 +133,6 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
           </div>
         </div>
       )}
-
 
       {isBlogsList && (
         <>
@@ -116,7 +144,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 Categories
               </h3>
             </div>
-            <motion.ul 
+            <motion.ul
               variants={listVariants}
               initial="hidden"
               animate="visible"
@@ -124,11 +152,12 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
             >
               <motion.li variants={itemVariants}>
                 <Link
-                  to="/blogs"
-                  className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${!activeCategory && isBlogsList
-                    ? "bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white"
-                    : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
-                    }`}
+                  to="/blog"
+                  className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${
+                    !activeCategory && isBlogsList
+                      ? "bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white"
+                      : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
+                  }`}
                 >
                   All Categories
                 </Link>
@@ -137,13 +166,17 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
                 const categorySlug = cat.slug ?? cat.name;
                 const isActive = activeCategory === categorySlug && isBlogsList;
                 return (
-                  <motion.li key={cat.id ?? categorySlug} variants={itemVariants}>
+                  <motion.li
+                    key={cat.id ?? categorySlug}
+                    variants={itemVariants}
+                  >
                     <Link
-                      to={`/blogs?category=${encodeURIComponent(categorySlug)}`}
-                      className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${isActive
-                        ? "bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white"
-                        : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
-                        }`}
+                      to={`/blog?category=${encodeURIComponent(categorySlug)}`}
+                      className={`block whitespace-nowrap rounded-full lg:rounded-lg px-4 py-1.5 lg:py-2 text-sm transition-colors duration-200 border lg:border-transparent ${
+                        isActive
+                          ? "bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white"
+                          : "text-light-textSecondary hover:bg-light-bgSecondary/50 hover:text-light-textPrimary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 dark:hover:text-dark-textPrimary border-light-border dark:border-dark-border"
+                      }`}
                     >
                       {cat.name}
                     </Link>

@@ -41,7 +41,7 @@ function AppLayout() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
-  const isBlogRoute = location.pathname.startsWith("/blogs");
+  const isBlogRoute = location.pathname.startsWith("/blog");
 
   // Dynamic document title based on current route
   useEffect(() => {
@@ -50,8 +50,9 @@ function AppLayout() {
 
     if (path === "/") title = "Home | Pritiranjan Mohanty";
     else if (path === "/projects") title = "Projects | Pritiranjan Mohanty";
-    else if (path === "/blogs" || path === "/blogs/") title = "Blogs | Pritiranjan Mohanty";
-    else if (path.startsWith("/blogs/")) title = "Blog | Pritiranjan Mohanty";
+    else if (path === "/blog" || path === "/blog/")
+      title = "Blog | Pritiranjan Mohanty";
+    else if (path.startsWith("/blog/")) title = "Blog | Pritiranjan Mohanty";
     else if (path === "/sitemap") title = "Sitemap | Pritiranjan Mohanty";
     else if (path.startsWith("/admin")) {
       if (path.includes("dashboard")) title = "Dashboard | Admin";
@@ -69,19 +70,28 @@ function AppLayout() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      {!isAdminRoute && !isBlogRoute && <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />}
+      {!isAdminRoute && !isBlogRoute && (
+        <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+      )}
 
       <main id="main-content" className="flex-1">
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blogs/:slug" element={<BlogPost />} />
+            <Route path="/blog" element={<Blogs />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/sitemap" element={<Sitemap />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/admin/auth/signin" element={<Login />} />
-            <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="category" element={<Category />} />
               <Route path="create-blog" element={<CreateBlog />} />

@@ -19,6 +19,35 @@ import {
   SiVercel,
 } from "react-icons/si";
 
+// Lucide social icons
+import { Github, Linkedin, Instagram } from "lucide-react";
+
+// Substack has no Lucide icon — shared inline SVG
+// eslint-disable-next-line react-refresh/only-export-components
+export const SubstackIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
+  </svg>
+);
+
+// X (formerly Twitter) brand icon — Lucide's Twitter still uses the old bird
+// eslint-disable-next-line react-refresh/only-export-components
+export const XIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+// Single source of truth for all social links
+// eslint-disable-next-line react-refresh/only-export-components
+export const socials = [
+  { id: "github",    label: "GitHub",      href: "https://github.com/pritiranjan-01",                icon: Github       },
+  { id: "linkedin",  label: "LinkedIn",    href: "https://www.linkedin.com/in/pritiranjan-mohanty/", icon: Linkedin     },
+  { id: "instagram", label: "Instagram",   href: "https://instagram.com/curious_capturer",           icon: Instagram    },
+  { id: "x",         label: "X",           href: "https://twitter.com/CuriousRanjan",                icon: XIcon        },
+  { id: "substack",  label: "Substack",    href: "https://substack.com/@pritiranjanmohanty",         icon: SubstackIcon },
+];
+
 
 const sampleProjects = [
   {
@@ -156,20 +185,31 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   // theme: 'light' | 'dim' | 'dark'
+  // Always boot from the browser/OS preference — ignore any previously saved theme.
+  // If the user manually changes the theme during this session, we track that in
+  // sessionStorage (which clears when the browser/tab is closed), so the next
+  // visit always re-syncs to the system theme automatically.
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark" || saved === "dim" || saved === "light") return saved;
-    return "light";
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    // Check if the user already overrode the theme THIS session
+    const sessionTheme = sessionStorage.getItem("sessionTheme");
+    if (sessionTheme === "dark" || sessionTheme === "dim" || sessionTheme === "light") {
+      return sessionTheme;
+    }
+
+    // Fresh session → follow the OS
+    return systemPrefersDark ? "dim" : "light";
   });
 
   // Backward-compat: isDarkMode is true for both dim and dark
   const isDarkMode = theme !== "light";
 
+  // Apply theme classes to <html> and <body>
   useEffect(() => {
     const body = document.body;
     const html = document.documentElement;
 
-    // Clear all theme classes first
     body.classList.remove("dark", "dim");
     html.classList.remove("dark", "dim");
 
@@ -177,24 +217,65 @@ export const AppProvider = ({ children }) => {
       body.classList.add("dark");
       html.classList.add("dark");
     } else if (theme === "dim") {
-      // dim also needs dark so Tailwind's dark: prefix classes activate
+      // dim also needs the "dark" class so Tailwind's dark: prefix activates
       body.classList.add("dark", "dim");
       html.classList.add("dark", "dim");
     }
-
-    localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Live-sync with Chrome/OS colour-scheme changes.
+  // - matchMedia "change" fires when Chrome Settings (or OS) theme changes →
+  //   ALWAYS apply it and clear any session override, because the user
+  //   explicitly changed their browser theme.
+  // - visibilitychange fires when the user switches back to this tab →
+  //   re-check in case the theme changed while the tab was hidden,
+  //   but only if the user hasn't manually overridden it this session.
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const applySystemTheme = (prefersDark) => {
+      sessionStorage.removeItem("sessionThemeOverride");
+      sessionStorage.removeItem("sessionTheme");
+      setTheme(prefersDark ? "dim" : "light");
+    };
+
+    // Chrome Settings / OS theme changed — always follow it
+    const handleSystemThemeChange = (e) => {
+      applySystemTheme(e.matches);
+    };
+
+    // Tab became visible again — re-check in case we missed a change
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        const hasSessionOverride =
+          sessionStorage.getItem("sessionThemeOverride") === "true";
+        if (!hasSessionOverride) {
+          applySystemTheme(mediaQuery.matches);
+        }
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   // Cycles: light → dim → dark → light
+  // Stores the choice in sessionStorage so it lasts only until the browser closes.
   const cycleTheme = () => {
     setTheme((prev) => {
-      if (prev === "light") return "dim";
-      if (prev === "dim")   return "dark";
-      return "light";
+      const next = prev === "light" ? "dim" : prev === "dim" ? "dark" : "light";
+      sessionStorage.setItem("sessionTheme", next);
+      sessionStorage.setItem("sessionThemeOverride", "true");
+      return next;
     });
   };
 
-  // Keep toggleTheme for any components still importing it (will toggle dark only)
+  // Keep toggleTheme for any components still importing it
   const toggleTheme = cycleTheme;
 
   const value = {

@@ -52,7 +52,7 @@ const Blogs = () => {
       {/* ── Header ── */}
       <div className="mb-6 flex items-center justify-between gap-4">
         <h3 className="text-4xl font-bold tracking-tight text-light-textPrimary dark:text-dark-textPrimary sm:text-5xl">
-          Blogs
+          Blog
         </h3>
 
         {/* Grid / List toggle */}

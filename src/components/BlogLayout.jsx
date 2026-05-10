@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ArrowLeft, Clock, Sun, Moon } from "lucide-react";
+import { ArrowLeft, Clock, Sun, Moon, SunMoon } from "lucide-react";
 import BlogSidebarLeft from "./BlogSidebarLeft";
 import BlogSidebarRight from "./BlogSidebarRight";
 import { useBlogContext } from "../context/BlogContext";
@@ -35,21 +35,25 @@ const BlogLayout = ({ children, activeBlog }) => {
   const location = useLocation();
 
   const isBlogsList =
-    location.pathname === "/blogs" || location.pathname === "/blogs/";
+    location.pathname === "/blog" || location.pathname === "/blog/";
 
   const currentTheme = theme || (isDarkMode ? "dark" : "light");
+  // Icon shown = the NEXT theme you'll switch INTO on click
+  // light → SunMoon  (going to Dim)
+  // dim   → Moon     (going to Dark)
+  // dark  → Sun      (going to Light)
   const themeConfig = {
     light: {
-      icon: <Moon className="h-3 w-3 text-light-textSecondary" />,
-      label: "Switch to Dim",
+      icon: <SunMoon className="h-3 w-3" />,
+      label: "Switch to Dim mode",
     },
     dim: {
-      icon: <span style={{ fontSize: "0.75rem", lineHeight: 1 }}>🌑</span>,
-      label: "Switch to Dark",
+      icon: <Moon className="h-3 w-3" />,
+      label: "Switch to Dark mode",
     },
     dark: {
-      icon: <Sun className="h-3 w-3 text-gray-300" />,
-      label: "Switch to Light",
+      icon: <Sun className="h-3 w-3" />,
+      label: "Switch to Light mode",
     },
   };
   const { icon: themeIcon, label: themeLabel } =

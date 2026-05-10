@@ -19,7 +19,7 @@ const BlogErrorState = ({ error }) => {
 
         <div className="flex flex-col gap-3">
           <Link
-            to="/blogs"
+            to="/blog"
             className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-accent-light dark:bg-accent-dark text-white dark:text-black font-medium transition-opacity hover:opacity-90"
           >
             Back to Blogs

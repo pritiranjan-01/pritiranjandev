@@ -24,7 +24,7 @@ const Sitemap = () => {
         },
         {
           name: "Blogs",
-          path: "/blogs",
+          path: "/blog",
           description: "Read blog posts",
         },
       ],

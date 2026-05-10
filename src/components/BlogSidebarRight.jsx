@@ -31,7 +31,7 @@ const BlogSidebarRight = ({ blogs }) => {
           recentBlogs.map((blog) => (
             <Link
               key={blog.id ?? blog.slug}
-              to={`/blogs/${blog.slug}`}
+              to={`/blog/${blog.slug}`}
               className="group block transition-colors"
             >
               <h4 className="mb-2 text-sm font-bold text-light-textPrimary line-clamp-2 hover:text-accent-light dark:text-dark-textPrimary dark:hover:text-accent-dark transition-colors">

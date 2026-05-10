@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon, SunMoon, Menu, X } from "lucide-react";
 import { utils } from "../assets/util/util.js";
 import { useAppContext } from "../context/AppContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,8 +17,8 @@ const menuVariants = {
       ease: "easeInOut",
       when: "afterChildren",
       staggerChildren: 0.05,
-      staggerDirection: -1
-    }
+      staggerDirection: -1,
+    },
   },
   open: {
     height: "auto",
@@ -27,14 +27,19 @@ const menuVariants = {
       duration: 0.1,
       ease: [0.16, 1, 0.3, 1],
       when: "beforeChildren",
-      staggerChildren: 0.08
-    }
-  }
+      staggerChildren: 0.08,
+    },
+  },
 };
 
 const itemVariants = {
   closed: { y: -15, opacity: 0, filter: "blur(4px)" },
-  open: { y: 0, opacity: 1, filter: "blur(0px)", transition: { duration: 0.3 } }
+  open: {
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.3 },
+  },
 };
 
 const Header = ({ isDarkMode, toggleTheme }) => {
@@ -53,20 +58,34 @@ const Header = ({ isDarkMode, toggleTheme }) => {
     setIsMobileMenuOpen(false);
   };
 
+  // Icon shown = the NEXT theme you'll switch INTO on click
+  // light → SunMoon  (going to Dim)
+  // dim   → Moon     (going to Dark)
+  // dark  → Sun      (going to Light)
   const themeConfig = {
-    light: { icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Dim mode"   },
-    dim:   { icon: <span style={{fontSize:"1.1rem",lineHeight:1}}>🌑</span>,         label: "Dark mode"  },
-    dark:  { icon: <Sun  className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Light mode" },
+    light: {
+      icon: <SunMoon className="h-4 w-4 sm:h-5 sm:w-5" />,
+      label: "Switch to Dim mode",
+    },
+    dim: {
+      icon: <Moon className="h-4 w-4 sm:h-5 sm:w-5" />,
+      label: "Switch to Dark mode",
+    },
+    dark: {
+      icon: <Sun className="h-4 w-4 sm:h-5 sm:w-5" />,
+      label: "Switch to Light mode",
+    },
   };
-  const { icon: themeIcon, label: themeLabel } = themeConfig[currentTheme] || themeConfig.light;
+  const { icon: themeIcon, label: themeLabel } =
+    themeConfig[currentTheme] || themeConfig.light;
 
   // Sky-blue accent underline only in dim; original colours for light & dark
   const underlineClass =
     currentTheme === "dim"
       ? "bg-[#1D9BF0]"
       : currentTheme === "dark"
-      ? "bg-[#ffffff]"
-      : "bg-black";
+        ? "bg-[#ffffff]"
+        : "bg-black";
 
   return (
     <>
@@ -117,11 +136,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
             <nav>
               <ul className="flex items-center gap-2 sm:gap-3 md:gap-5">
                 <li>
-                  <NavLink
-                    to="/"
-                    className={navLinkClasses}
-                    end
-                  >
+                  <NavLink to="/" className={navLinkClasses} end>
                     {({ isActive }) => (
                       <>
                         Home
@@ -136,10 +151,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to="/projects"
-                    className={navLinkClasses}
-                  >
+                  <NavLink to="/projects" className={navLinkClasses}>
                     {({ isActive }) => (
                       <>
                         Projects
@@ -154,10 +166,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to="/blogs"
-                    className={navLinkClasses}
-                  >
+                  <NavLink to="/blog" className={navLinkClasses}>
                     {({ isActive }) => (
                       <>
                         Blogs
@@ -228,9 +237,10 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                     <NavLink
                       to="/"
                       className={({ isActive }) =>
-                        `block py-2 px-3 rounded-lg transition-colors ${isActive
-                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                        `block py-2 px-3 rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                            : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
                         }`
                       }
                       end
@@ -243,9 +253,10 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                     <NavLink
                       to="/projects"
                       className={({ isActive }) =>
-                        `block py-2 px-3 rounded-lg transition-colors ${isActive
-                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                        `block py-2 px-3 rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                            : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
                         }`
                       }
                       onClick={closeMobileMenu}
@@ -255,11 +266,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   </motion.li>
                   <motion.li variants={itemVariants}>
                     <NavLink
-                      to="/blogs"
+                      to="/blog"
                       className={({ isActive }) =>
-                        `block py-2 px-3 rounded-lg transition-colors ${isActive
-                          ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
-                          : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
+                        `block py-2 px-3 rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-accent-light text-white dark:bg-accent-dark dark:text-black"
+                            : "text-light-textPrimary hover:bg-light-bgSecondary dark:text-dark-textPrimary dark:hover:bg-dark-bgSecondary"
                         }`
                       }
                       onClick={closeMobileMenu}

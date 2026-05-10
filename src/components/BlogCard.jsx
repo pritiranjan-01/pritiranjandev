@@ -33,7 +33,7 @@ const GridCard = ({ blog, index }) => {
 
   return (
     <Link
-      to={`/blogs/${blog.slug ?? ""}`}
+      to={`/blog/${blog.slug ?? ""}`}
       className="group flex flex-col rounded-2xl overflow-hidden
                  bg-light-bgSecondary dark:bg-dark-bgSecondary
                  border border-light-border dark:border-white/8
@@ -107,7 +107,7 @@ const ListRow = ({ blog, index, isFirst }) => {
 
   return (
     <Link
-      to={`/blogs/${blog.slug ?? ""}`}
+      to={`/blog/${blog.slug ?? ""}`}
       className="group grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_200px] items-center
                  gap-4 py-5 px-1
                  border-b border-light-border dark:border-white/8

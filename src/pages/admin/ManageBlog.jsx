@@ -113,7 +113,7 @@ const ManageBlog = () => {
                   >
                     <td className="px-6 py-4">
                       <Link
-                        to={`/blogs/${blog.slug}`}
+                        to={`/blog/${blog.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-medium text-light-textPrimary hover:text-accent-light dark:text-dark-textPrimary dark:hover:text-accent-dark transition-colors line-clamp-1"

@@ -56,7 +56,7 @@ const BlogPost = () => {
     if (window.history.state && window.history.state.idx > 0) {
       navigate(-1);
     } else {
-      navigate("/blogs");
+      navigate("/blog");
     }
   };
 
