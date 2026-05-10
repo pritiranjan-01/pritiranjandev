@@ -95,7 +95,7 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
               rel="noreferrer"
               title={label}
               aria-label={label}
-              className="flex h-7 w-7 items-center justify-center rounded-full border border-light-border text-light-textSecondary transition-all hover:border-accent-light hover:text-accent-light hover:scale-110 dark:border-dark-border dark:text-dark-textSecondary dark:hover:border-accent-dark dark:hover:text-accent-dark"
+              className="flex h-7 w-7 items-center justify-center  rounded-full text-light-textSecondary transition-all hover:text-accent-light hover:scale-110 dark:text-dark-textSecondary dark:hover:text-accent-dark"
             >
               <Icon className="h-3.5 w-3.5" />
             </a>
