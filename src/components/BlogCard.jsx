@@ -79,8 +79,10 @@ const GridCard = ({ blog, index }) => {
         </p>
 
         {/* Title */}
-        <h3 className="text-base font-bold leading-snug text-light-textPrimary dark:text-dark-textPrimary
-                       group-hover:text-accent-light dark:group-hover:text-accent-dark transition-colors line-clamp-3">
+        <h3
+          className="text-base font-bold leading-snug text-light-textPrimary dark:text-dark-textPrimary
+                       group-hover:text-accent-light dark:group-hover:text-accent-dark transition-colors line-clamp-3"
+        >
           {blog.title}
         </h3>
 
@@ -111,7 +113,6 @@ const ListRow = ({ blog, index, isFirst }) => {
       className="group grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_200px] items-center
                  gap-4 py-5 px-1
                  border-b border-light-border dark:border-white/8
-                 hover:bg-light-bgSecondary/60 dark:hover:bg-dark-bgSecondary/40
                  transition-colors duration-200"
       style={{
         borderTop: isFirst ? "1px solid" : undefined,
@@ -120,9 +121,11 @@ const ListRow = ({ blog, index, isFirst }) => {
       }}
     >
       {/* Title */}
-      <h3 className="text-base font-semibold text-light-textPrimary dark:text-dark-textPrimary
+      <h3
+        className="text-base font-semibold text-light-textPrimary dark:text-dark-textPrimary
                      group-hover:text-accent-light dark:group-hover:text-accent-dark
-                     transition-colors leading-snug line-clamp-2">
+                     transition-colors leading-snug line-clamp-2"
+      >
         {blog.title}
       </h3>
 
