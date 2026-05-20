@@ -5,6 +5,7 @@ import GSD from "./GSD.png";
 import SMS from "./SMS.png";
 import TF from "./TF.png";
 import US from "./US.png";
+import FT from "./FT.png";
 
 export const projectPosters = {
     BMS,
@@ -14,4 +15,5 @@ export const projectPosters = {
     SMS,
     TF,
     US,
+    FT,
 };

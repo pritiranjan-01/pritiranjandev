@@ -8,7 +8,17 @@ import { projectDemos } from "../assets/projectDemos/index.js";
 import { projectPosters } from "../assets/projectPosters/index.js";
 
 // react-icons imports
-import { FaReact, FaHtml5, FaCss3Alt, FaJava, FaAws, FaDatabase, FaCode, FaSitemap, FaCloud } from "react-icons/fa";
+import {
+  FaReact,
+  FaHtml5,
+  FaCss3Alt,
+  FaJava,
+  FaAws,
+  FaDatabase,
+  FaCode,
+  FaSitemap,
+  FaCloud,
+} from "react-icons/fa";
 import {
   SiJavascript,
   SiTailwindcss,
@@ -25,7 +35,13 @@ import { Github, Linkedin, Instagram } from "lucide-react";
 // Substack has no Lucide icon — shared inline SVG
 // eslint-disable-next-line react-refresh/only-export-components
 export const SubstackIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
     <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
   </svg>
 );
@@ -33,7 +49,13 @@ export const SubstackIcon = ({ className }) => (
 // X (formerly Twitter) brand icon — Lucide's Twitter still uses the old bird
 // eslint-disable-next-line react-refresh/only-export-components
 export const XIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
@@ -41,15 +63,60 @@ export const XIcon = ({ className }) => (
 // Single source of truth for all social links
 // eslint-disable-next-line react-refresh/only-export-components
 export const socials = [
-  { id: "github",    label: "GitHub",      href: "https://github.com/pritiranjan-01",                icon: Github       },
-  { id: "linkedin",  label: "LinkedIn",    href: "https://www.linkedin.com/in/pritiranjan-mohanty/", icon: Linkedin     },
-  { id: "instagram", label: "Instagram",   href: "https://instagram.com/curious_capturer",           icon: Instagram    },
-  { id: "x",         label: "X",           href: "https://twitter.com/CuriousRanjan",                icon: XIcon        },
-  { id: "substack",  label: "Substack",    href: "https://substack.com/@pritiranjanmohanty",         icon: SubstackIcon },
+  {
+    id: "github",
+    label: "GitHub",
+    href: "https://github.com/pritiranjan-01",
+    icon: Github,
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/pritiranjan-mohanty/",
+    icon: Linkedin,
+  },
+  {
+    id: "instagram",
+    label: "Instagram",
+    href: "https://instagram.com/curious_capturer",
+    icon: Instagram,
+  },
+  {
+    id: "x",
+    label: "X",
+    href: "https://twitter.com/CuriousRanjan",
+    icon: XIcon,
+  },
+  {
+    id: "substack",
+    label: "Substack",
+    href: "https://substack.com/@pritiranjanmohanty",
+    icon: SubstackIcon,
+  },
 ];
 
-
 const sampleProjects = [
+  {
+    title: "Free Talk",
+    description:
+      "Built a real-time messaging platform that lets users create private chat rooms, manage memberships, and exchange messages instantly — with secure authentication and persistent history across sessions.",
+    stack: [
+      "React",
+      "Tailwind CSS",
+      "Spring Boot",
+      "Spring Security",
+      "REST APIs",
+      "Clouflare R2",
+      "WebSocket",
+      "STOMP",
+      "MongoDB",
+    ],
+    source:
+      "https://github.com/pritiranjan-01/freetalk-messaging-platform.git",
+    website: "https://freetalk-rho.vercel.app",
+    mediaSource: projectDemos.FT,
+    poster: projectPosters.FT,
+  },
   {
     title: "Billing System",
     description:
@@ -143,39 +210,39 @@ const skillCategories = [
   {
     title: "Frontend",
     skills: [
-      { name: "React",        icon: FaReact       },
-      { name: "JavaScript",   icon: SiJavascript  },
+      { name: "React", icon: FaReact },
+      { name: "JavaScript", icon: SiJavascript },
       { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "HTML",         icon: FaHtml5       },
-      { name: "CSS",          icon: FaCss3Alt     },
+      { name: "HTML", icon: FaHtml5 },
+      { name: "CSS", icon: FaCss3Alt },
     ],
   },
   {
     title: "Backend",
     skills: [
-      { name: "Java",             icon: FaJava      },
-      { name: "J2EE",             icon: FaJava      },
-      { name: "Hibernate",        icon: FaDatabase  },
+      { name: "Java", icon: FaJava },
+      { name: "J2EE", icon: FaJava },
+      { name: "Hibernate", icon: FaDatabase },
       { name: "Spring Framework", icon: SiSpringboot },
-      { name: "Spring Boot",      icon: SiSpringboot },
-      { name: "REST APIs",        icon: FaCode      },
-      { name: "Microservices",    icon: FaSitemap   },
+      { name: "Spring Boot", icon: SiSpringboot },
+      { name: "REST APIs", icon: FaCode },
+      { name: "Microservices", icon: FaSitemap },
     ],
   },
   {
     title: "Databases",
     skills: [
-      { name: "MySQL",      icon: SiMysql      },
+      { name: "MySQL", icon: SiMysql },
       { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "MongoDB",    icon: SiMongodb    },
+      { name: "MongoDB", icon: SiMongodb },
     ],
   },
   {
     title: "Clouds",
     skills: [
-      { name: "AWS (IAM, EC2, S3, EB, RDS)", icon: FaAws    },
-      { name: "Render",                       icon: FaCloud  },
-      { name: "Vercel",                       icon: SiVercel },
+      { name: "AWS (IAM, EC2, S3, EB, RDS)", icon: FaAws },
+      { name: "Render", icon: FaCloud },
+      { name: "Vercel", icon: SiVercel },
     ],
   },
 ];
@@ -190,11 +257,17 @@ export const AppProvider = ({ children }) => {
   // sessionStorage (which clears when the browser/tab is closed), so the next
   // visit always re-syncs to the system theme automatically.
   const [theme, setTheme] = useState(() => {
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
 
     // Check if the user already overrode the theme THIS session
     const sessionTheme = sessionStorage.getItem("sessionTheme");
-    if (sessionTheme === "dark" || sessionTheme === "dim" || sessionTheme === "light") {
+    if (
+      sessionTheme === "dark" ||
+      sessionTheme === "dim" ||
+      sessionTheme === "light"
+    ) {
       return sessionTheme;
     }
 
@@ -231,7 +304,9 @@ export const AppProvider = ({ children }) => {
   //   re-check in case the theme changed while the tab was hidden,
   //   but only if the user hasn't manually overridden it this session.
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    );
 
     const applySystemTheme = (prefersDark) => {
       sessionStorage.removeItem("sessionThemeOverride");
@@ -256,11 +331,20 @@ export const AppProvider = ({ children }) => {
     };
 
     mediaQuery.addEventListener("change", handleSystemThemeChange);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+    );
 
     return () => {
-      mediaQuery.removeEventListener("change", handleSystemThemeChange);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      mediaQuery.removeEventListener(
+        "change",
+        handleSystemThemeChange,
+      );
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
     };
   }, []);
 
@@ -268,7 +352,8 @@ export const AppProvider = ({ children }) => {
   // Stores the choice in sessionStorage so it lasts only until the browser closes.
   const cycleTheme = () => {
     setTheme((prev) => {
-      const next = prev === "light" ? "dim" : prev === "dim" ? "dark" : "light";
+      const next =
+        prev === "light" ? "dim" : prev === "dim" ? "dark" : "light";
       sessionStorage.setItem("sessionTheme", next);
       sessionStorage.setItem("sessionThemeOverride", "true");
       return next;
