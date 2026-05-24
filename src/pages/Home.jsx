@@ -8,6 +8,7 @@ import VideoModal from "../components/VideoModal.jsx";
 import resumePDF from "../assets/util/Pritiranjan_Java_Developer_Resume.pdf";
 import { GitHubCalendar } from 'react-github-calendar';
 import { motion } from "framer-motion";
+import WorkExperience from "../components/WorkExperience.jsx";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const Home = () => {
 
         {/* Profile Summary */}
         <motion.section
+          id="about"
           className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -109,6 +111,7 @@ const Home = () => {
 
         {/* Skills */}
         <motion.section
+          id="skills"
           className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -145,6 +148,9 @@ const Home = () => {
             ))}
           </div>
         </motion.section>
+
+        {/* Work Experience */}
+        <WorkExperience />
 
         {/* GitHub Calendar */}
         <motion.section
