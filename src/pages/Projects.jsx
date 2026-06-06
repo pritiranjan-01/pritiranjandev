@@ -27,7 +27,13 @@ const Projects = () => {
         {/* Back Button */}
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
           className="group absolute left-0 flex items-center justify-center rounded-lg bg-light-bgSecondary/50 p-2 text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark cursor-pointer md:hidden"
           aria-label="Go back"
         >

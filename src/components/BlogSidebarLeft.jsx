@@ -62,7 +62,13 @@ const BlogSidebarLeft = ({ categories, activeBlog }) => {
       {isBlogsList && (
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
           className="hidden group w-full max-w-fit items-center gap-2 bg-light-bgSecondary/50 text-md font-medium text-light-textSecondary transition-all hover:bg-light-bgSecondary hover:text-accent-light dark:bg-dark-bgSecondary/50 dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary dark:hover:text-accent-dark cursor-pointer rounded-lg px-2 py-1"
         >
           <ArrowLeft className="h-6 w-8 transition-transform group-hover:-translate-x-1" />

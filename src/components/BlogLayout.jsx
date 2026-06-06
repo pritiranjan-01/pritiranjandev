@@ -66,7 +66,15 @@ const BlogLayout = ({ children, activeBlog }) => {
         {/* Left Side: Back */}
         <div>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              if (window.history.state && window.history.state.idx > 0) {
+                navigate(-1);
+              } else if (activeBlog) {
+                navigate("/blog");
+              } else {
+                navigate("/");
+              }
+            }}
             className="flex items-center gap-2 text-sm font-medium text-[#9ca3af] hover:text-accent-light dark:hover:text-accent-dark transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
