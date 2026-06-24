@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SocialFeed from "../components/SocialFeed.jsx";
+import NewsletterCTA from "../components/NewsletterCTA.jsx";
 import { utils } from "../assets/util/util.js";
 import { useAppContext } from "../context/AppContext.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
@@ -289,6 +290,9 @@ const Home = () => {
           </h2>
           <SocialFeed />
         </motion.section>
+
+        {/* Newsletter Subscription Section */}
+        <NewsletterCTA />
       </motion.div>
     </>
   );

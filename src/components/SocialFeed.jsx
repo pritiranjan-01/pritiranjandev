@@ -22,11 +22,6 @@ const brandStyles = {
     text: "text-white/85 group-hover:text-white",
     icon: "text-white/85 group-hover:text-white",
   },
-  substack: {
-    bg: "bg-gradient-to-br from-[#FF6B4A] to-[#E64A19] hover:shadow-[0_0_20px_rgba(230,74,25,0.4)] border border-orange-500/30",
-    text: "text-white/85 group-hover:text-white",
-    icon: "text-white/85 group-hover:text-white",
-  },
 };
 
 const SocialFeed = () => {

@@ -32,20 +32,6 @@ import {
 // Lucide social icons
 import { Github, Linkedin, Instagram } from "lucide-react";
 
-// Substack has no Lucide icon — shared inline SVG
-// eslint-disable-next-line react-refresh/only-export-components
-export const SubstackIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-    aria-hidden="true"
-  >
-    <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
-  </svg>
-);
-
 // X (formerly Twitter) brand icon — Lucide's Twitter still uses the old bird
 // eslint-disable-next-line react-refresh/only-export-components
 export const XIcon = ({ className }) => (
@@ -86,12 +72,6 @@ export const socials = [
     label: "X",
     href: "https://twitter.com/CuriousRanjan",
     icon: XIcon,
-  },
-  {
-    id: "substack",
-    label: "Substack",
-    href: "https://substack.com/@pritiranjanmohanty",
-    icon: SubstackIcon,
   },
 ];
 
