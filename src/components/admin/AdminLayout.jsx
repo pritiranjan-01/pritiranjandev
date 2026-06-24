@@ -12,6 +12,7 @@ import {
   Sun,
   Moon,
   SunMoon,
+  BarChart3,
 } from "lucide-react";
 import { logout } from "../../services/api";
 import { useAppContext } from "../../context/AppContext";
@@ -47,6 +48,14 @@ const AdminLayout = () => {
       icon: <LayoutList className="w-5 h-5" />,
       subItems: [
         { label: "Create Category", path: "/admin/category#create", icon: <PlusCircle className="w-4 h-4" /> }
+      ]
+    },
+    {
+      label: "Analytics",
+      path: "/admin/analytics",
+      icon: <BarChart3 className="w-5 h-5" />,
+      subItems: [
+        { label: "View Detailed Report", path: "/admin/analytics/detailed", icon: <ListIcon className="w-4 h-4" /> }
       ]
     },
   ];
@@ -116,12 +125,14 @@ const AdminLayout = () => {
                       <NavLink
                         key={subIdx}
                         to={sub.path}
-                        className={() =>
-                          `flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${window.location.hash === "#create"
+                        className={({ isActive }) => {
+                          const isHashActive = sub.path.includes("#") && window.location.hash === sub.path.substring(sub.path.indexOf("#"));
+                          const isCurrentlyActive = isActive || isHashActive;
+                          return `flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${isCurrentlyActive
                             ? "text-accent-light dark:text-accent-dark font-medium bg-accent-light/5 dark:bg-accent-dark/5"
                             : "text-light-textSecondary hover:bg-light-bgSecondary dark:text-dark-textSecondary dark:hover:bg-dark-bgSecondary/50 hover:text-light-textPrimary dark:hover:text-dark-textPrimary"
-                          }`
-                        }
+                          }`;
+                        }}
                         onClick={() => setIsSidebarOpen(false)}
                       >
                         {sub.icon}

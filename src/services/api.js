@@ -174,3 +174,27 @@ export async function deleteCategory(id) {
     `/api/categories/${encodeURIComponent(String(id))}`,
   );
 }
+
+// ——— Visits / Analytics ———
+export async function trackVisit(payload) {
+  return request("POST", "/api/visits", {
+    data: payload,
+  });
+}
+
+export async function getVisits(params = {}) {
+  const { page = 0, size = 10, sortBy = "visitedAt", direction = "desc" } = params;
+  const q = new URLSearchParams({
+    page: String(page),
+    size: String(size),
+    sortBy,
+    direction,
+  });
+  return request("GET", "/api/visits", {
+    params: Object.fromEntries(q),
+  });
+}
+
+export async function getVisitStats() {
+  return request("GET", "/api/visits/stats");
+}

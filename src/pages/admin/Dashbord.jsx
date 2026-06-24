@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { PenTool, List, LayoutList, LogOut, LayoutDashboard } from "lucide-react";
+import { PenTool, List, LayoutList, LogOut, LayoutDashboard, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import { logout } from "../../services/api";
 
@@ -32,6 +32,13 @@ const Dashboard = () => {
       icon: <LayoutList className="w-8 h-8 text-accent-light dark:text-accent-dark" />,
       link: "/admin/category",
       color: "bg-purple-50 dark:bg-purple-900/20",
+    },
+    {
+      title: "Visitor Analytics",
+      description: "Track visitor counts, locations, referrers, and pages.",
+      icon: <BarChart3 className="w-8 h-8 text-accent-light dark:text-accent-dark" />,
+      link: "/admin/analytics",
+      color: "bg-amber-50 dark:bg-amber-900/20",
     },
   ];
 

@@ -28,6 +28,8 @@ const Dashboard = lazy(() => import("./pages/admin/Dashbord"));
 const Category = lazy(() => import("./pages/admin/Category"));
 const CreateBlog = lazy(() => import("./pages/admin/CreateBlog"));
 const ManageBlog = lazy(() => import("./pages/admin/ManageBlog"));
+const AnalyticsDashboard = lazy(() => import("./pages/admin/analytics/AnalyticsDashboard"));
+const DetailedVisits = lazy(() => import("./pages/admin/analytics/DetailedVisits"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -68,6 +70,28 @@ function AppLayout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Track visitor IP and approximate location (session-based)
+  useEffect(() => {
+    // Skip tracking for admin console paths
+    if (location.pathname.startsWith("/admin")) {
+      return;
+    }
+
+    const hasTracked = sessionStorage.getItem("portfolio_tracked_visit");
+    if (!hasTracked) {
+      import("./services/api")
+        .then(({ trackVisit }) => {
+          trackVisit({
+            userAgent: navigator.userAgent,
+            pageUrl: window.location.href,
+            referrer: document.referrer || "Direct"
+          });
+        })
+        .catch((err) => console.error("Error logging visit:", err));
+      sessionStorage.setItem("portfolio_tracked_visit", "true");
+    }
+  }, [location.pathname]);
+
   return (
     <div className="flex min-h-screen flex-col">
       {!isAdminRoute && !isBlogRoute && (
@@ -97,6 +121,8 @@ function AppLayout() {
               <Route path="create-blog" element={<CreateBlog />} />
               <Route path="edit-blog/:slug" element={<CreateBlog />} />
               <Route path="manage-blog" element={<ManageBlog />} />
+              <Route path="analytics" element={<AnalyticsDashboard />} />
+              <Route path="analytics/detailed" element={<DetailedVisits />} />
             </Route>
           </Routes>
         </Suspense>
