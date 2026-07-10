@@ -79,16 +79,48 @@ function AppLayout() {
 
     const hasTracked = sessionStorage.getItem("portfolio_tracked_visit");
     if (!hasTracked) {
+      // Extract UTM parameters from the URL query string
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get("utm_source");
+      const utmMedium = urlParams.get("utm_medium");
+      const utmCampaign = urlParams.get("utm_campaign");
+
+      // Build a rich referrer string:
+      // - Prefer utm_source over document.referrer (social platforms often strip Referer header)
+      // - Append utm_medium and utm_campaign for richer analytics context
+      let referrer;
+      if (utmSource) {
+        const parts = [utmSource];
+        if (utmMedium) parts.push(utmMedium);
+        if (utmCampaign) parts.push(utmCampaign);
+        referrer = parts.join(" / ");
+      } else {
+        referrer = document.referrer || "Direct";
+      }
+
       import("./services/api")
         .then(({ trackVisit }) => {
           trackVisit({
             userAgent: navigator.userAgent,
             pageUrl: window.location.href,
-            referrer: document.referrer || "Direct"
+            referrer,
           });
         })
         .catch((err) => console.error("Error logging visit:", err));
       sessionStorage.setItem("portfolio_tracked_visit", "true");
+
+      // Clean UTM params from URL to keep the address bar tidy
+      if (utmSource || utmMedium || utmCampaign) {
+        urlParams.delete("utm_source");
+        urlParams.delete("utm_medium");
+        urlParams.delete("utm_campaign");
+        urlParams.delete("utm_term");
+        urlParams.delete("utm_content");
+        const cleanSearch = urlParams.toString();
+        const cleanUrl =
+          window.location.pathname + (cleanSearch ? `?${cleanSearch}` : "") + window.location.hash;
+        window.history.replaceState({}, "", cleanUrl);
+      }
     }
   }, [location.pathname]);
 
