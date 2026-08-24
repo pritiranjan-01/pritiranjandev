@@ -110,7 +110,7 @@ const sampleProjects = [
       "Razor Pay",
     ],
     source: "https://github.com/pritiranjan-01/billing-system.git",
-    website: null,
+    website: "https://billing-system-eta-ebon.vercel.app/",
     mediaSource: projectDemos.BS,
     poster: projectPosters.BS,
   },
